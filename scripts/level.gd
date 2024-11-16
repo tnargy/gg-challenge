@@ -6,8 +6,9 @@ extends Node2D
 @export var chips_needed: int
 
 @onready var player = $Player
+@onready var world = $".."
 
 func _on_goal_complete():
-	print("Congrats!")
 	player.sprite.visible = false
+	world.timer.start()
 	get_tree().paused = true
