@@ -6,6 +6,8 @@ extends Area2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var raycast: RayCast2D = $RayCast2D
 
+signal inventory_changed
+
 var size = 32
 var inputs = {"Up": Vector2.UP,
 			"Right": Vector2.RIGHT,
@@ -23,6 +25,7 @@ func _handle_item_collected(type: String):
 		level.chips_needed -= 1
 	else:
 		inventory[type] += 1
+		inventory_changed.emit(type, inventory[type])
 			
 func _input(event):
 	for dir in inputs.keys():
@@ -63,6 +66,7 @@ func move(dir):
 				return # Goal Incomplete
 		elif inventory[door.door_color] > 0:
 			inventory[door.door_color] -= 1
+			inventory_changed.emit(door.door_color, inventory[door.door_color])
 			door.queue_free() # Open door
 		else:
 			return # Block movement

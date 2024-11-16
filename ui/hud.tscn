@@ -104,39 +104,48 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="BLUE" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="YELLOW" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="GREEN" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect4" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="RED" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect5" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="FLIPPERS" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect6" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="FIRESHOES" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect7" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="SKATES" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
-[node name="TextureRect8" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+[node name="SUCTION" type="TextureRect" parent="HBoxContainer/ColorRect/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
 [node name="Virtual" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0

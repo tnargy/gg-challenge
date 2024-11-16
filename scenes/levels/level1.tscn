@@ -371,6 +371,7 @@ position = Vector2(864, 1376)
 item_type = "GREEN"
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
+[connection signal="inventory_changed" from="Player" to="HUD" method="_on_player_inventory_changed"]
 [connection signal="itemCollected" from="Chips/Chip" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip2" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip3" to="Player" method="_handle_item_collected"]
