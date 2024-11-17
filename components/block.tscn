@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://0bkyv37l08aw"]
+
+[ext_resource type="Script" path="res://scripts/block.gd" id="1_bpvf3"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="1_k8aig"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gx3lp"]
+
+[node name="Block" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_bpvf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gx3lp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k8aig")
+region_enabled = true
+region_rect = Rect2(0, 320, 32, 32)

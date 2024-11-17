@@ -289,9 +289,6 @@ door_color = "GATE"
 [node name="Goal" parent="Walls" instance=ExtResource("4_u4bv3")]
 position = Vector2(400, 368)
 
-[node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("3_v4q0p")]
-walls = NodePath("../Walls")
-
 [node name="Chips" type="Node" parent="."]
 
 [node name="Chip" parent="Chips" instance=ExtResource("4_o6v8g")]
@@ -372,8 +369,11 @@ item_type = "GREEN"
 position = Vector2(864, 1376)
 item_type = "GREEN"
 
+[node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("3_v4q0p")]
+position = Vector2(400, 496)
+walls = NodePath("../Walls")
+
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
-[connection signal="inventory_changed" from="Player" to="HUD" method="_on_player_inventory_changed"]
 [connection signal="itemCollected" from="Chips/Chip" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip2" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip3" to="Player" method="_handle_item_collected"]
@@ -393,3 +393,4 @@ item_type = "GREEN"
 [connection signal="itemCollected" from="Keys/Yellow2" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Keys/Green" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Keys/Green2" to="Player" method="_handle_item_collected"]
+[connection signal="inventory_changed" from="Player" to="HUD" method="_on_player_inventory_changed"]

@@ -145,7 +145,6 @@ layout_mode = 2
 texture = ExtResource("3_7w2g7")
 
 [node name="Virtual" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -163,21 +162,25 @@ grow_vertical = 0
 position = Vector2(-11, -100)
 texture_normal = ExtResource("4_oun3m")
 action = "Up"
+visibility_mode = 1
 
 [node name="Left" type="TouchScreenButton" parent="Virtual"]
 position = Vector2(-80, -33)
 texture_normal = ExtResource("5_i6wxl")
 action = "Left"
+visibility_mode = 1
 
 [node name="Right" type="TouchScreenButton" parent="Virtual"]
 position = Vector2(49, -32)
 texture_normal = ExtResource("6_yqof4")
 action = "Right"
+visibility_mode = 1
 
 [node name="Down" type="TouchScreenButton" parent="Virtual"]
 position = Vector2(-11, 18)
 texture_normal = ExtResource("7_73rfu")
 action = "Down"
+visibility_mode = 1
 
 [connection signal="pressed" from="Virtual/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Virtual/Right" to="." method="_on_right_pressed"]

@@ -60,21 +60,44 @@ func move(dir):
 		death.emit()
 	
 	# Check to see if you are at a door
-	raycast.target_position = inputs[dir] * size
-	raycast.force_raycast_update()
-	if raycast.is_colliding():
-		var door: Door = raycast.get_collider()
-		if door.door_color == "GATE":
-			if level.chips_needed <= 0:
-				door.queue_free() # Goal Complete
-			else:
-				return # Goal Incomplete
-		elif inventory[door.door_color] > 0:
-			inventory[door.door_color] -= 1
-			inventory_changed.emit(door.door_color, inventory[door.door_color])
-			door.queue_free() # Open door
-		else:
-			return # Block movement
+	if not _raycast_check(inputs[dir]):
+		return
 	
 	position += inputs[dir] * size
 	
+func _raycast_check(dir: Vector2) -> bool:
+	raycast.target_position = dir * size
+	raycast.force_raycast_update()
+	if raycast.is_colliding():
+		var target_obj = raycast.get_collider()
+		if target_obj is Door:	# Walking into door
+			if target_obj.door_color == "GATE":
+				if level.chips_needed <= 0:
+					target_obj.queue_free() # Goal Complete
+				else:
+					return false# Goal Incomplete
+			elif inventory[target_obj.door_color] > 0:
+				inventory[target_obj.door_color] -= 1
+				inventory_changed.emit(target_obj.door_color, inventory[target_obj.door_color])
+				target_obj.queue_free() # Open door
+			else:
+				return false# Stop movement
+		elif target_obj is Block:	# Walking into block
+			# Check push direction
+			raycast.add_exception(target_obj)
+			raycast.target_position = raycast.target_position * 2
+			raycast.force_raycast_update()
+			var current_tile: Vector2i = walls.local_to_map(position)
+			var target_tile: Vector2i = Vector2i(
+				current_tile.x + int(dir.x * 2), # Two tiles away
+				current_tile.y + int(dir.y * 2), # Two tiles away
+			)
+			var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
+			if raycast.is_colliding() or target_tile_data.get_custom_data("wall"):
+				raycast.target_position = raycast.target_position / 2
+				raycast.clear_exceptions()
+				return false
+			raycast.target_position = raycast.target_position / 2
+			target_obj.position += dir * size
+			raycast.clear_exceptions()
+	return true
