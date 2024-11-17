@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mh6xw"]
 [ext_resource type="PackedScene" uid="uid://2s4h405j2aou" path="res://scenes/levels/level1.tscn" id="1_ugpdc"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("current_level")]
 script = ExtResource("1_mh6xw")
+current_level = NodePath("Level")
 
 [node name="Level" parent="." instance=ExtResource("1_ugpdc")]
 
