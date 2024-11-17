@@ -58,6 +58,8 @@ func move(dir):
 		walls.set_cell(target_tile, 1, Vector2i(3,3))
 		sprite.visible = false
 		death.emit()
+	elif target_tile_data.get_custom_data("mud"):
+		walls.set_cell(target_tile, 1, Vector2i(0,0))
 	
 	# Check to see if you are at a door
 	if not _raycast_check(inputs[dir]):
@@ -93,7 +95,7 @@ func _raycast_check(dir: Vector2) -> bool:
 				current_tile.y + int(dir.y * 2), # Two tiles away
 			)
 			var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
-			if raycast.is_colliding() or target_tile_data.get_custom_data("wall"):
+			if raycast.is_colliding() or target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
 				raycast.target_position = raycast.target_position / 2
 				raycast.clear_exceptions()
 				return false
