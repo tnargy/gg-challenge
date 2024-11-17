@@ -1,3 +1,4 @@
+class_name World
 extends Node2D
 
 @export var current_level: Level
@@ -5,8 +6,12 @@ extends Node2D
 var level = 1
 
 func _on_timer_timeout():
-	current_level.queue_free()
 	level += 1
+	_loadLevel()
+	
+	
+func _loadLevel():
+	current_level.queue_free()
 	var nextLevel = load("res://scenes/levels/level"+str(level)+".tscn")
 	if nextLevel == null:
 		print("Congrats you beat all the levels")
@@ -14,4 +19,6 @@ func _on_timer_timeout():
 	var l = nextLevel.instantiate()
 	add_child(l)
 	current_level = l
+	current_level.restart.connect(_loadLevel)
 	get_tree().paused = false
+	

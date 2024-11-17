@@ -7,11 +7,11 @@
 script = ExtResource("1_mh6xw")
 current_level = NodePath("Level")
 
-[node name="Level" parent="." instance=ExtResource("1_ugpdc")]
-
 [node name="Timer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 2.0
 one_shot = true
+
+[node name="Level" parent="." instance=ExtResource("1_ugpdc")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

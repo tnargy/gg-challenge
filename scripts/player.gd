@@ -7,6 +7,7 @@ extends Area2D
 @onready var raycast: RayCast2D = $RayCast2D
 
 signal inventory_changed
+signal death
 
 var size = 32
 var inputs = {"Up": Vector2.UP,
@@ -53,6 +54,10 @@ func move(dir):
 	# Prevent passing through walls
 	if target_tile_data.get_custom_data("wall"):
 		return
+	elif target_tile_data.get_custom_data("water"):
+		walls.set_cell(target_tile, 1, Vector2i(3,3))
+		sprite.visible = false
+		death.emit()
 	
 	# Check to see if you are at a door
 	raycast.target_position = inputs[dir] * size
@@ -72,3 +77,4 @@ func move(dir):
 			return # Block movement
 	
 	position += inputs[dir] * size
+	
