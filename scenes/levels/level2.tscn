@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dt5enj4pqj7vk"]
+[gd_scene load_steps=10 format=4 uid="uid://dt5enj4pqj7vk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_uylgh"]
 [ext_resource type="PackedScene" uid="uid://wej5s6wd0bwc" path="res://ui/hud.tscn" id="2_ayuei"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ys7fnh5xwoey" path="res://components/door.tscn" id="4_sct32"]
 [ext_resource type="PackedScene" uid="uid://bsxko8rjjhnud" path="res://components/goal.tscn" id="5_v687u"]
 [ext_resource type="PackedScene" uid="uid://bb2rgbr0065td" path="res://scenes/player.tscn" id="6_2susb"]
+[ext_resource type="PackedScene" uid="uid://1eqgg3v3yf0w" path="res://scenes/ant.tscn" id="6_tb0wr"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="7_vihtw"]
 [ext_resource type="PackedScene" uid="uid://0bkyv37l08aw" path="res://components/block.tscn" id="8_t4ksf"]
 
@@ -43,6 +44,17 @@ item_type = "CHIP"
 [node name="Chip4" parent="Chips" instance=ExtResource("7_vihtw")]
 position = Vector2(1184, 864)
 item_type = "CHIP"
+
+[node name="Enemy" type="Node" parent="."]
+
+[node name="Ant" parent="Enemy" instance=ExtResource("6_tb0wr")]
+position = Vector2(608, 928)
+
+[node name="Ant2" parent="Enemy" instance=ExtResource("6_tb0wr")]
+position = Vector2(544, 992)
+
+[node name="Ant3" parent="Enemy" instance=ExtResource("6_tb0wr")]
+position = Vector2(544, 864)
 
 [node name="Gate" parent="." instance=ExtResource("4_sct32")]
 position = Vector2(144, 464)
