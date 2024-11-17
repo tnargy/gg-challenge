@@ -1,20 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://1eqgg3v3yf0w"]
+[gd_scene load_steps=5 format=3 uid="uid://1eqgg3v3yf0w"]
 
 [ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="1_441p1"]
+[ext_resource type="Script" path="res://scripts/ant.gd" id="1_pwnhy"]
+
+[sub_resource type="Curve2D" id="Curve2D_4vom6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
 size = Vector2(32, 32)
 
-[node name="Ant" type="Area2D"]
+[node name="Ant" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
 scale = Vector2(2, 2)
+curve = SubResource("Curve2D_4vom6")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = -1.5708
+
+[node name="Ant" type="Area2D" parent="Path2D/PathFollow2D"]
 collision_layer = 4
 collision_mask = 2
+script = ExtResource("1_pwnhy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Ant"]
 scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_suvy0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D/Ant"]
 texture = ExtResource("1_441p1")
 region_enabled = true
-region_rect = Rect2(128, 0, 32, 32)
+region_rect = Rect2(128, 96, 32, 32)
