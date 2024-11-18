@@ -1,13 +1,39 @@
-[gd_scene load_steps=9 format=4 uid="uid://dt5enj4pqj7vk"]
+[gd_scene load_steps=15 format=4 uid="uid://dt5enj4pqj7vk"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_uylgh"]
 [ext_resource type="PackedScene" uid="uid://wej5s6wd0bwc" path="res://ui/hud.tscn" id="2_ayuei"]
-[ext_resource type="TileSet" uid="uid://de1owm0sxs33g" path="res://components/walls.tres" id="3_f43do"]
+[ext_resource type="TileSet" uid="uid://ceknow582epea" path="res://components/walls.tres" id="3_f43do"]
 [ext_resource type="PackedScene" uid="uid://ys7fnh5xwoey" path="res://components/door.tscn" id="4_sct32"]
 [ext_resource type="PackedScene" uid="uid://bsxko8rjjhnud" path="res://components/goal.tscn" id="5_v687u"]
 [ext_resource type="PackedScene" uid="uid://bb2rgbr0065td" path="res://scenes/player.tscn" id="6_2susb"]
+[ext_resource type="Script" path="res://scripts/ant.gd" id="6_j2gnx"]
+[ext_resource type="Texture2D" uid="uid://dtdnhhjt0u2qi" path="res://assets/ant.png" id="7_je5mg"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="7_vihtw"]
 [ext_resource type="PackedScene" uid="uid://0bkyv37l08aw" path="res://components/block.tscn" id="8_t4ksf"]
+
+[sub_resource type="Curve2D" id="Curve2D_n4747"]
+bake_interval = 64.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -64, 0, 0, 0, 0, -64, -64, 0, 0, 0, 0, -64, 128, 0, 0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 32, 64, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
+size = Vector2(32, 32)
+
+[sub_resource type="Curve2D" id="Curve2D_idk6n"]
+bake_interval = 64.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -32, 0, 0, 0, 0, -32, -32, 0, 0, 0, 0, -32, -96, 0, 0, 0, 0, -96, -96, 0, 0, 0, 0, -96, 96, 0, 0, 0, 0, -32, 96, 0, 0, 0, 0, -32, 32, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_nw1ff"]
+bake_interval = 64.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 32, -64, 0, 0, 0, 0, 0, -64, 0, 0, 0, 0, 0, -128, 0, 0, 0, 0, -64, -128, 0, 0, 0, 0, -64, 64, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
 
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
@@ -46,6 +72,87 @@ item_type = "CHIP"
 
 [node name="Enemy" type="Node" parent="."]
 
+[node name="AntSpeed" type="Timer" parent="Enemy"]
+wait_time = 0.4
+autostart = true
+
+[node name="Ant" type="Node2D" parent="Enemy" node_paths=PackedStringArray("ant_speed")]
+position = Vector2(544, 864)
+scale = Vector2(2, 2)
+script = ExtResource("6_j2gnx")
+ant_speed = NodePath("../AntSpeed")
+
+[node name="Path2D" type="Path2D" parent="Enemy/Ant"]
+curve = SubResource("Curve2D_n4747")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemy/Ant/Path2D"]
+rotation = -1.5708
+cubic_interp = false
+
+[node name="Area2D" type="Area2D" parent="Enemy/Ant/Path2D/PathFollow2D"]
+rotation = 1.5708
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Ant/Path2D/PathFollow2D/Area2D"]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_suvy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/Ant/Path2D/PathFollow2D/Area2D"]
+texture = ExtResource("7_je5mg")
+region_rect = Rect2(128, 0, 32, 32)
+
+[node name="Ant2" type="Node2D" parent="Enemy" node_paths=PackedStringArray("ant_speed")]
+position = Vector2(608, 928)
+scale = Vector2(2, 2)
+script = ExtResource("6_j2gnx")
+ant_speed = NodePath("../AntSpeed")
+
+[node name="Path2D" type="Path2D" parent="Enemy/Ant2"]
+curve = SubResource("Curve2D_idk6n")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemy/Ant2/Path2D"]
+rotation = -1.5708
+cubic_interp = false
+
+[node name="Area2D" type="Area2D" parent="Enemy/Ant2/Path2D/PathFollow2D"]
+rotation = 1.5708
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Ant2/Path2D/PathFollow2D/Area2D"]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_suvy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/Ant2/Path2D/PathFollow2D/Area2D"]
+texture = ExtResource("7_je5mg")
+region_rect = Rect2(128, 0, 32, 32)
+
+[node name="Ant3" type="Node2D" parent="Enemy" node_paths=PackedStringArray("ant_speed")]
+position = Vector2(544, 992)
+scale = Vector2(2, 2)
+script = ExtResource("6_j2gnx")
+ant_speed = NodePath("../AntSpeed")
+
+[node name="Path2D" type="Path2D" parent="Enemy/Ant3"]
+curve = SubResource("Curve2D_nw1ff")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemy/Ant3/Path2D"]
+cubic_interp = false
+
+[node name="Area2D" type="Area2D" parent="Enemy/Ant3/Path2D/PathFollow2D"]
+rotation = 1.5708
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Ant3/Path2D/PathFollow2D/Area2D"]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_suvy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/Ant3/Path2D/PathFollow2D/Area2D"]
+texture = ExtResource("7_je5mg")
+region_rect = Rect2(128, 0, 32, 32)
+
 [node name="Gate" parent="." instance=ExtResource("4_sct32")]
 position = Vector2(144, 464)
 scale = Vector2(1, 1)
@@ -58,7 +165,7 @@ position = Vector2(464, 464)
 position = Vector2(496, 464)
 
 [node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("6_2susb")]
-position = Vector2(528.5, 464)
+position = Vector2(528, 464)
 walls = NodePath("../Walls")
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
