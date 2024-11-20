@@ -61,6 +61,7 @@ func _raycast_check(dir: Vector2) -> bool:
 			current_tile.x + dir.x,
 			current_tile.y + dir.y,
 		)
+		#var target_tile: Vector2i = walls.local_to_map(raycast.get_collision_point())
 		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
 		# Walking into door
 		if target_obj is Door:
@@ -81,20 +82,21 @@ func _raycast_check(dir: Vector2) -> bool:
 			_toggle_look_ahead(true, target_obj)
 			
 			if raycast.is_colliding():
-				#target_obj = raycast.get_collider()
-				#target_tile = Vector2i(
-					#target_tile.x + dir.x,
-					#target_tile.y + dir.y,
-				#)
-				#target_tile_data = walls.get_cell_tile_data(target_tile)
-				#if target_obj is TileMap:
-					#if target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
-						#raycast.target_position = raycast.target_position / 2
-						#raycast.clear_exceptions()
-						#return false	# Object on other side of Block
-				target_obj.position += dir * size
-				_toggle_look_ahead(false)
-				return false
+				var new_target_obj = raycast.get_collider()
+				target_tile = Vector2i(
+					target_tile.x + dir.x,
+					target_tile.y + dir.y,
+				)
+				target_tile_data = walls.get_cell_tile_data(target_tile)
+				if new_target_obj is TileMapLayer:
+					if target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
+						_toggle_look_ahead(false)
+						return false	# Object on other side of Block
+				elif new_target_obj is Block or new_target_obj is Door:
+					_toggle_look_ahead(false)
+					return false	# Object on other side of Block
+			target_obj.position += dir * size
+			_toggle_look_ahead(false)
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
 			if target_tile_data.get_custom_data("wall"):
@@ -110,9 +112,9 @@ func _raycast_check(dir: Vector2) -> bool:
 	return true	# Nothing in way
 	
 
-func _toggle_look_ahead(enable: bool, _target_obj: Object):
+func _toggle_look_ahead(enable: bool, target_obj: Object = null):
 	if enable:
-		raycast.add_exception(_target_obj)
+		raycast.add_exception(target_obj)
 		raycast.target_position = raycast.target_position * 2
 	else:
 		raycast.clear_exceptions()
