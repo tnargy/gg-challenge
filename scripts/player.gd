@@ -34,13 +34,7 @@ func _input(event):
 			move(dir)
 
 func move(dir):
-	var current_tile: Vector2i = walls.local_to_map(position)
-	var target_tile: Vector2i = Vector2i(
-		current_tile.x + inputs[dir].x,
-		current_tile.y + inputs[dir].y,
-	)
-	var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
-	
+	# Turn Sprite
 	match dir:
 		"Up":
 			sprite.set_region_rect(Rect2(192,384,32,32))
@@ -50,28 +44,24 @@ func move(dir):
 			sprite.set_region_rect(Rect2(192,480,32,32))
 		_:
 			sprite.set_region_rect(Rect2(192,448,32,32))
-
-	# Prevent passing through walls
-	if target_tile_data.get_custom_data("wall"):
-		return
-	elif target_tile_data.get_custom_data("water"):
-		walls.set_cell(target_tile, 1, Vector2i(3,3))
-		sprite.visible = false
-		death.emit()
-	elif target_tile_data.get_custom_data("mud"):
-		walls.set_cell(target_tile, 1, Vector2i(0,0))
-	
-	# Check to see if you are at a door
+			
 	if not _raycast_check(inputs[dir]):
-		return
+		return	# Can't move that way
 	
 	position += inputs[dir] * size
+	
 	
 func _raycast_check(dir: Vector2) -> bool:
 	raycast.target_position = dir * size
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
 		var target_obj = raycast.get_collider()
+		var current_tile: Vector2i = walls.local_to_map(position)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + dir.x,
+			current_tile.y + dir.y,
+		)
+		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
 		if target_obj is Door:	# Walking into door
 			if target_obj.door_color == "GATE":
 				if level.chips_needed <= 0:
@@ -89,17 +79,32 @@ func _raycast_check(dir: Vector2) -> bool:
 			raycast.add_exception(target_obj)
 			raycast.target_position = raycast.target_position * 2
 			raycast.force_raycast_update()
-			var current_tile: Vector2i = walls.local_to_map(position)
-			var target_tile: Vector2i = Vector2i(
-				current_tile.x + int(dir.x * 2), # Two tiles away
-				current_tile.y + int(dir.y * 2), # Two tiles away
-			)
-			var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
-			if raycast.is_colliding() or target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
+			
+			if raycast.is_colliding():
+				#target_obj = raycast.get_collider()
+				#target_tile = Vector2i(
+					#target_tile.x + dir.x,
+					#target_tile.y + dir.y,
+				#)
+				#target_tile_data = walls.get_cell_tile_data(target_tile)
+				#if target_obj is TileMap:
+					#if target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
+						#raycast.target_position = raycast.target_position / 2
+						#raycast.clear_exceptions()
+						#return false	# Object on other side of Block
 				raycast.target_position = raycast.target_position / 2
+				target_obj.position += dir * size
 				raycast.clear_exceptions()
+				raycast.force_raycast_update()
 				return false
-			raycast.target_position = raycast.target_position / 2
-			target_obj.position += dir * size
-			raycast.clear_exceptions()
-	return true
+		elif target_obj is TileMapLayer:
+			if target_tile_data.get_custom_data("wall"):
+				return false	# Wall
+			elif target_tile_data.get_custom_data("water"):
+				walls.set_cell(target_tile, 1, Vector2i(3,3))
+				sprite.visible = false
+				death.emit()
+			elif target_tile_data.get_custom_data("mud"):
+				walls.set_cell(target_tile, 1, Vector2i(0,0))
+				
+	return true	# Nothing in way
