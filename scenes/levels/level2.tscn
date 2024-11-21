@@ -57,23 +57,23 @@ position = Vector2(464, 464)
 position = Vector2(496, 464)
 
 [node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("6_2susb")]
-position = Vector2(336, 464)
+position = Vector2(528, 464)
 walls = NodePath("../Walls")
 
 [node name="Ant" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(272, 432)
+position = Vector2(208, 400)
 walls = NodePath("../Walls")
-starting_direction = "UP"
+starting_direction = "DOWN"
 
 [node name="Ant2" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(304, 464)
+position = Vector2(208, 464)
 walls = NodePath("../Walls")
-starting_direction = "UP"
+starting_direction = "DOWN"
 
 [node name="Ant3" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(272, 496)
+position = Vector2(208, 528)
 walls = NodePath("../Walls")
-starting_direction = "UP"
+starting_direction = "DOWN"
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
 [connection signal="itemCollected" from="Chips/Chip" to="Player" method="_handle_item_collected"]

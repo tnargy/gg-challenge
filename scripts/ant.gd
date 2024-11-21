@@ -5,7 +5,7 @@ extends Area2D
 @export_enum("UP", "RIGHT", "DOWN", "LEFT") var starting_direction: String
 @onready var sprite: Sprite2D = $Sprite2D
 var size = 32
-var speed = 0.5
+var speed = 0.75
 var speed_delta = speed
 var current_direction
 var direction_order = [
@@ -23,10 +23,13 @@ func _ready():
 			current_direction = 0
 		"RIGHT":
 			current_direction = 1
+			sprite.rotate(deg_to_rad(90))
 		"DOWN":
 			current_direction = 2
+			sprite.rotate(deg_to_rad(180))
 		"LEFT":
 			current_direction = 3
+			sprite.rotate(deg_to_rad(-90))
 
 
 func _process(delta):
@@ -38,6 +41,7 @@ func _process(delta):
 
 func move():
 	var current_tile: Vector2i = walls.local_to_map(position)
+	var direction = direction_order[current_direction]
 	match direction:
 		Vector2.UP:
 			left_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
@@ -68,5 +72,3 @@ func check_direction() -> bool:
 	current_direction = (current_direction - 1) % 4
 	sprite.rotate(deg_to_rad(-90))
 	return true
-
-
