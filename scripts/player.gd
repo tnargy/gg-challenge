@@ -61,7 +61,6 @@ func _raycast_check(dir: Vector2) -> bool:
 			current_tile.x + dir.x,
 			current_tile.y + dir.y,
 		)
-		#var target_tile: Vector2i = walls.local_to_map(raycast.get_collision_point())
 		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
 		# Walking into door
 		if target_obj is Door:
