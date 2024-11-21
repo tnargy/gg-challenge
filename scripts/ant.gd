@@ -22,11 +22,11 @@ func _ready():
 		"UP":
 			current_direction = 0
 		"RIGHT":
-			current_direction += 1
+			current_direction = 1
 		"DOWN":
-			current_direction += 2
+			current_direction = 2
 		"LEFT":
-			current_direction += 3
+			current_direction = 3
 
 
 func _process(delta):
@@ -38,9 +38,20 @@ func _process(delta):
 
 func move():
 	var current_tile: Vector2i = walls.local_to_map(position)
-	rotate_ant(current_tile, direction_order[current_direction])
+	match direction:
+		Vector2.UP:
+			left_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
+			forward_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
+		Vector2.LEFT:
+			left_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
+			forward_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
+		Vector2.DOWN:
+			left_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
+			forward_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
+		Vector2.RIGHT:
+			left_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
+			forward_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
 	if check_direction():
-		rotate_ant(current_tile, direction_order[current_direction])
 		position += direction_order[current_direction] * size
 	
 func check_direction() -> bool:
@@ -51,27 +62,11 @@ func check_direction() -> bool:
 		if target_tile_data \
 				and target_tile_data.get_custom_data("wall"):
 			current_direction = (current_direction + 1) % 4
+			sprite.rotate(deg_to_rad(90))
 			return false
 		return true
 	current_direction = (current_direction - 1) % 4
+	sprite.rotate(deg_to_rad(-90))
 	return true
 
 
-func rotate_ant(current_tile: Vector2i, direction: Vector2):
-	match direction:
-		Vector2.UP:
-			left_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
-			forward_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
-			sprite.rotate(deg_to_rad(0))
-		Vector2.LEFT:
-			left_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
-			forward_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
-			sprite.rotate(deg_to_rad(-90))
-		Vector2.DOWN:
-			left_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
-			forward_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
-			sprite.rotate(deg_to_rad(180))
-		Vector2.RIGHT:
-			left_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
-			forward_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
-			sprite.rotate(deg_to_rad(90))
