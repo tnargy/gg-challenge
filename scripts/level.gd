@@ -11,7 +11,8 @@ extends Node2D
 signal restart
 
 func _ready():
-	restart.connect(world._loadLevel)
+	#restart.connect(world._loadLevel)
+	pass
 
 func _on_goal_complete():
 	player.sprite.visible = false

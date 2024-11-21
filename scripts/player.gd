@@ -15,6 +15,7 @@ var inputs = {"Up": Vector2.UP,
 			"Down": Vector2.DOWN,
 			"Left": Vector2.LEFT}
 var inventory: Dictionary
+var swimming = false
 
 func _ready():
 	inventory = {
@@ -37,7 +38,10 @@ func move(dir):
 	# Turn Sprite
 	match dir:
 		"Up":
-			sprite.set_region_rect(Rect2(192,384,32,32))
+			if swimming:
+				sprite.set_region_rect(Rect2(192-96,384,32,32))
+			else:
+				sprite.set_region_rect(Rect2(192,384,32,32))
 		"Left":
 			sprite.set_region_rect(Rect2(192,416,32,32))
 		"Right":
@@ -101,13 +105,17 @@ func _raycast_check(dir: Vector2) -> bool:
 			if target_tile_data.get_custom_data("wall"):
 				return false	# Wall
 			elif target_tile_data.get_custom_data("water"):
-				walls.set_cell(target_tile, 1, Vector2i(3,3))
-				sprite.visible = false
-				death.emit()
+				if inventory["FLIPPERS"] < 1:
+					walls.set_cell(target_tile, 1, Vector2i(3,3))
+					sprite.visible = false
+					death.emit()
+				else:
+					swimming = true
 			elif target_tile_data.get_custom_data("mud"):
 				# Change mud into flooring
 				walls.set_cell(target_tile, 1, Vector2i(0,0))
-				
+			else:
+				swimming = false	
 	return true	# Nothing in way
 	
 
