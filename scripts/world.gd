@@ -19,6 +19,6 @@ func _loadLevel():
 	var l = nextLevel.instantiate()
 	add_child(l)
 	current_level = l
-	current_level.restart.connect(_loadLevel)
+	#current_level.restart.connect(_loadLevel)
 	get_tree().paused = false
 	

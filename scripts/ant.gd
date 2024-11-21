@@ -1,5 +1,5 @@
 class_name Ant
-extends Area2D
+extends Enemy
 
 @export var walls: TileMapLayer
 @export_enum("UP", "RIGHT", "DOWN", "LEFT") var starting_direction: String

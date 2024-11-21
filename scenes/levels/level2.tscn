@@ -80,5 +80,6 @@ starting_direction = "DOWN"
 [connection signal="itemCollected" from="Chips/Chip2" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip3" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip4" to="Player" method="_handle_item_collected"]
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="inventory_changed" from="Player" to="HUD" method="_on_player_inventory_changed"]

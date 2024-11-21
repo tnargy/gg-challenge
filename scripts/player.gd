@@ -119,3 +119,8 @@ func _toggle_look_ahead(enable: bool, target_obj: Object = null):
 		raycast.clear_exceptions()
 		raycast.target_position = raycast.target_position / 2
 	raycast.force_raycast_update()
+
+
+func _on_area_entered(area):
+	if area is Enemy:
+		death.emit()
