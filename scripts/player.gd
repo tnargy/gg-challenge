@@ -33,35 +33,35 @@ func _handle_item_collected(type: String):
 func _input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			move(dir)
+			move(inputs[dir])
 
-func update_direction(dir: String):
+func update_direction(dir: Vector2):
 	match dir:
-		"Up":
+		Vector2.UP:
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,384,32,32))
 			else:
 				sprite.set_region_rect(Rect2(288,384,32,32))
-		"Left":
+		Vector2.LEFT:
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,416,32,32))
 			else:
 				sprite.set_region_rect(Rect2(288,416,32,32))
-		"Right":
+		Vector2.RIGHT:
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,480,32,32))
 			else:
 				sprite.set_region_rect(Rect2(288,480,32,32))
-		"Down":
+		Vector2.DOWN:
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,448,32,32))
 			else:
 				sprite.set_region_rect(Rect2(288,448,32,32))
 			
 			
-func move(dir: String):
-	if _raycast_check(inputs[dir]):
-		position += inputs[dir] * size
+func move(dir: Vector2):
+	if _raycast_check(dir):
+		position += dir * size
 	update_direction(dir)
 	
 func _raycast_check(dir: Vector2) -> bool:
@@ -111,21 +111,14 @@ func _raycast_check(dir: Vector2) -> bool:
 			_toggle_look_ahead(false)
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
+# ICE
 			if target_tile_data.get_custom_data("ice"):
 				if inventory["SKATES"] < 1:
-					position += dir * size
-					match dir:
-							Vector2.UP:
-								move("UP")
-							Vector2.DOWN:
-								move("DOWN")
-							Vector2.LEFT:
-								move("Left")
-							Vector2.RIGHT:
-								move("Right")
 					return false
+# WALL
 			elif target_tile_data.get_custom_data("wall"):
-					return false	# Wall
+					return false
+# WATER
 			elif target_tile_data.get_custom_data("water"):
 				if inventory["FLIPPERS"] < 1:
 					walls.set_cell(target_tile, 1, Vector2i(3,3))
@@ -133,14 +126,22 @@ func _raycast_check(dir: Vector2) -> bool:
 					death.emit()
 				else:
 					swimming = true
+# MUD
 			elif target_tile_data.get_custom_data("mud"):
 				# Change mud into flooring
 				walls.set_cell(target_tile, 1, Vector2i(0,0))
+# FIRE
 			elif target_tile_data.get_custom_data("fire"):
 				if inventory["FIRESHOES"] < 1:
 					walls.set_cell(target_tile, 1, Vector2i(3,4))
 					sprite.visible = false
 					death.emit()
+# FORCE
+			elif target_tile_data.get_custom_data("force"):
+				if inventory["SUCTION"] < 1:
+					position += dir * size
+					move(target_tile_data.get_custom_data("force-dir"))
+					return false
 	else:
 		swimming = false
 	
