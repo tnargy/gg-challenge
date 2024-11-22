@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://4xraiopocrg8"
-path="res://.godot/imported/digital-7.ttf-8cc6dd54b7ccb3eb70ada075584d513d.fontdata"
+path="res://.godot/imported/digital-7.ttf-4ce5703ae586e340bac361caeb4a6b61.fontdata"
 
 [deps]
 
-source_file="res://assets/digital-7.ttf"
-dest_files=["res://.godot/imported/digital-7.ttf-8cc6dd54b7ccb3eb70ada075584d513d.fontdata"]
+source_file="res://assets/ui/digital-7.ttf"
+dest_files=["res://.godot/imported/digital-7.ttf-4ce5703ae586e340bac361caeb4a6b61.fontdata"]
 
 [params]
 

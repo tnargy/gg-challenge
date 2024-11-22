@@ -16,7 +16,7 @@ var inputs = {"Up": Vector2.UP,
 			"Left": Vector2.LEFT}
 var inventory: Dictionary
 var swimming = false
-var firewalker = false
+var sliding = false
 
 func _ready():
 	inventory = {
@@ -31,6 +31,8 @@ func _handle_item_collected(type: String):
 		inventory_changed.emit(type, inventory[type])
 			
 func _input(event):
+	if sliding: return
+	
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			move(inputs[dir])
@@ -139,14 +141,20 @@ func _raycast_check(dir: Vector2) -> bool:
 # FORCE
 			elif target_tile_data.get_custom_data("force"):
 				if inventory["SUCTION"] < 1:
-					position += dir * size
-					move(target_tile_data.get_custom_data("force-dir"))
+					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))
 					return false
 	else:
 		swimming = false
+		sliding = false
 	
 	return true	# Nothing in way
-	
+
+func slide_animation(dir: Vector2, next_tile: Vector2):
+	sliding = true
+	var new_pos = position + dir * size
+	var tween = create_tween()
+	tween.tween_property(self, "position", new_pos, 0.13)
+	tween.tween_callback(move.bind(next_tile))
 
 func _toggle_look_ahead(enable: bool, target_obj: Object = null):
 	if enable:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3bbgefq5asmr"
-path="res://.godot/imported/flatLight04.png-6a72d3f660339978a79eef83ea84a92d.ctex"
+uid="uid://ckbopt4wxrqyb"
+path="res://.godot/imported/flippers.png-5df4262dc3218cb4337afc173c94e927.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flatLight04.png"
-dest_files=["res://.godot/imported/flatLight04.png-6a72d3f660339978a79eef83ea84a92d.ctex"]
+source_file="res://assets/shoes/flippers.png"
+dest_files=["res://.godot/imported/flippers.png-5df4262dc3218cb4337afc173c94e927.ctex"]
 
 [params]
 

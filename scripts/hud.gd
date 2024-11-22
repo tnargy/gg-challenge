@@ -3,10 +3,6 @@ extends CanvasLayer
 @export var level: Level
 
 const BLANK = preload("res://assets/blank.png")
-const BLUEKEY = preload("res://assets/bluekey.png")
-const REDKEY = preload("res://assets/redkey.png")
-const YELLOWKEY = preload("res://assets/yellowkey.png")
-const GREENKEY = preload("res://assets/greenkey.png")
 
 func _process(_delta):
 	%Level.text = str(level.level_number)
@@ -16,10 +12,18 @@ func _process(_delta):
 func _on_player_inventory_changed(type: String, inv: int):
 	match type:
 		"BLUE":
-			%BLUE.texture = BLUEKEY if inv > 0 else BLANK
+			%BLUE.texture = preload("res://assets/keys/bluekey.png") if inv > 0 else BLANK
 		"RED":
-			%RED.texture = REDKEY if inv > 0 else BLANK
+			%RED.texture = preload("res://assets/keys/redkey.png") if inv > 0 else BLANK
 		"YELLOW":
-			%YELLOW.texture = YELLOWKEY if inv > 0 else BLANK
+			%YELLOW.texture = preload("res://assets/keys/yellowkey.png") if inv > 0 else BLANK
 		"GREEN":
-			%GREEN.texture = GREENKEY if inv > 0 else BLANK
+			%GREEN.texture = preload("res://assets/keys/greenkey.png") if inv > 0 else BLANK
+		"FLIPPERS":
+			%FLIPPERS.texture = preload("res://assets/shoes/flippers.png") if inv > 0 else BLANK
+		"FIRESHOES":
+			%FIRESHOES.texture = preload("res://assets/shoes/fireshoes.png") if inv > 0 else BLANK
+		"SKATES":
+			%SKATES.texture = preload("res://assets/shoes/skates.png") if inv > 0 else BLANK
+		"SUCTION":
+			%SUCTION.texture = preload("res://assets/shoes/suction.png") if inv > 0 else BLANK

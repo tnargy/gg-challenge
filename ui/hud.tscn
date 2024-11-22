@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://wej5s6wd0bwc"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ph4jy"]
-[ext_resource type="FontFile" uid="uid://4xraiopocrg8" path="res://assets/digital-7.ttf" id="2_40bn2"]
+[ext_resource type="FontFile" uid="uid://4xraiopocrg8" path="res://assets/ui/digital-7.ttf" id="2_40bn2"]
 [ext_resource type="Texture2D" uid="uid://c3irxl4rsx471" path="res://assets/blank.png" id="3_7w2g7"]
-[ext_resource type="Texture2D" uid="uid://c0cdbyd8css1v" path="res://assets/flatLight01.png" id="4_oun3m"]
-[ext_resource type="Texture2D" uid="uid://b7f10x6at8dwx" path="res://assets/flatLight03.png" id="5_i6wxl"]
-[ext_resource type="Texture2D" uid="uid://d3bbgefq5asmr" path="res://assets/flatLight04.png" id="6_yqof4"]
-[ext_resource type="Texture2D" uid="uid://cfkro5nqul04s" path="res://assets/flatLight08.png" id="7_73rfu"]
+[ext_resource type="Texture2D" uid="uid://c0cdbyd8css1v" path="res://assets/ui/flatLight01.png" id="4_oun3m"]
+[ext_resource type="Texture2D" uid="uid://b7f10x6at8dwx" path="res://assets/ui/flatLight03.png" id="5_i6wxl"]
+[ext_resource type="Texture2D" uid="uid://d3bbgefq5asmr" path="res://assets/ui/flatLight04.png" id="6_yqof4"]
+[ext_resource type="Texture2D" uid="uid://cfkro5nqul04s" path="res://assets/ui/flatLight08.png" id="7_73rfu"]
 
 [sub_resource type="Theme" id="Theme_puf8c"]
 default_font = ExtResource("2_40bn2")

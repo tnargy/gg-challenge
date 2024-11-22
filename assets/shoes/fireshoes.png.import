@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmhfrmgs4m412"
-path="res://.godot/imported/greenkey.png-644ffb1195963a2e6e1c42c14bef8085.ctex"
+uid="uid://cldrdxbr42p26"
+path="res://.godot/imported/fireshoes.png-a79bd1e13246295b8de4e6a7b7d22ffe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/greenkey.png"
-dest_files=["res://.godot/imported/greenkey.png-644ffb1195963a2e6e1c42c14bef8085.ctex"]
+source_file="res://assets/shoes/fireshoes.png"
+dest_files=["res://.godot/imported/fireshoes.png-a79bd1e13246295b8de4e6a7b7d22ffe.ctex"]
 
 [params]
 

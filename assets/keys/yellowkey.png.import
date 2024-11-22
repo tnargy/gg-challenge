@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0cdbyd8css1v"
-path="res://.godot/imported/flatLight01.png-0847d2d6d4dd255bdce6851ce5107bb9.ctex"
+uid="uid://jmwqp163wki1"
+path="res://.godot/imported/yellowkey.png-f56bc1eda98ee3e6a1ede798411ebfef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flatLight01.png"
-dest_files=["res://.godot/imported/flatLight01.png-0847d2d6d4dd255bdce6851ce5107bb9.ctex"]
+source_file="res://assets/keys/yellowkey.png"
+dest_files=["res://.godot/imported/yellowkey.png-f56bc1eda98ee3e6a1ede798411ebfef.ctex"]
 
 [params]
 

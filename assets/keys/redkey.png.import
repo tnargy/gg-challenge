@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfkro5nqul04s"
-path="res://.godot/imported/flatLight08.png-1a0a4a57fbe1131c88d9cf0c980df3de.ctex"
+uid="uid://slhulsbtaov5"
+path="res://.godot/imported/redkey.png-a8bd825d18d211c514c8ba02d327bf4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flatLight08.png"
-dest_files=["res://.godot/imported/flatLight08.png-1a0a4a57fbe1131c88d9cf0c980df3de.ctex"]
+source_file="res://assets/keys/redkey.png"
+dest_files=["res://.godot/imported/redkey.png-a8bd825d18d211c514c8ba02d327bf4d.ctex"]
 
 [params]
 

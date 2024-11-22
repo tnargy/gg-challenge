@@ -1,5 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/html/
 export_presets.cfg
 .vscode/settings.json
+html.zip
