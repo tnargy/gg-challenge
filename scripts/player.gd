@@ -16,6 +16,7 @@ var inputs = {"Up": Vector2.UP,
 			"Left": Vector2.LEFT}
 var inventory: Dictionary
 var swimming = false
+var firewalker = false
 
 func _ready():
 	inventory = {
@@ -34,8 +35,7 @@ func _input(event):
 		if event.is_action_pressed(dir):
 			move(dir)
 
-func move(dir):
-	# Turn Sprite
+func update_direction(dir: String):
 	match dir:
 		"Up":
 			if swimming:
@@ -43,16 +43,26 @@ func move(dir):
 			else:
 				sprite.set_region_rect(Rect2(192,384,32,32))
 		"Left":
-			sprite.set_region_rect(Rect2(192,416,32,32))
+			if swimming:
+				sprite.set_region_rect(Rect2(192-96,416,32,32))
+			else:
+				sprite.set_region_rect(Rect2(192,416,32,32))
 		"Right":
-			sprite.set_region_rect(Rect2(192,480,32,32))
-		_:
-			sprite.set_region_rect(Rect2(192,448,32,32))
+			if swimming:
+				sprite.set_region_rect(Rect2(192-96,480,32,32))
+			else:
+				sprite.set_region_rect(Rect2(192,480,32,32))
+		"Down":
+			if swimming:
+				sprite.set_region_rect(Rect2(192-96,448,32,32))
+			else:
+				sprite.set_region_rect(Rect2(192,448,32,32))
 			
-	if not _raycast_check(inputs[dir]):
-		return	# Can't move that way
-	
-	position += inputs[dir] * size
+			
+func move(dir: String):
+	if _raycast_check(inputs[dir]):
+		position += inputs[dir] * size
+	update_direction(dir)
 	
 	
 func _raycast_check(dir: Vector2) -> bool:
@@ -114,8 +124,13 @@ func _raycast_check(dir: Vector2) -> bool:
 			elif target_tile_data.get_custom_data("mud"):
 				# Change mud into flooring
 				walls.set_cell(target_tile, 1, Vector2i(0,0))
-			else:
-				swimming = false	
+			elif target_tile_data.get_custom_data("fire"):
+				if inventory["FIRESHOES"] < 1:
+					walls.set_cell(target_tile, 1, Vector2i(3,4))
+					sprite.visible = false
+					death.emit()
+	else:
+		swimming = false
 	return true	# Nothing in way
 	
 
