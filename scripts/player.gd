@@ -62,11 +62,11 @@ func update_direction(dir: Vector2):
 			
 			
 func move(dir: Vector2):
-	if _raycast_check(dir):
+	if raycast_check(dir):
 		position += dir * size
 	update_direction(dir)
 	
-func _raycast_check(dir: Vector2) -> bool:
+func raycast_check(dir: Vector2) -> bool:
 	raycast.target_position = dir * size
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
@@ -93,7 +93,7 @@ func _raycast_check(dir: Vector2) -> bool:
 		# Walking into block
 		elif target_obj is Block:
 			# Check push direction
-			_toggle_look_ahead(true, target_obj)
+			toggle_look_ahead(true, target_obj)
 			
 			if raycast.is_colliding():
 				var new_target_obj = raycast.get_collider()
@@ -104,18 +104,33 @@ func _raycast_check(dir: Vector2) -> bool:
 				target_tile_data = walls.get_cell_tile_data(target_tile)
 				if new_target_obj is TileMapLayer:
 					if target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
-						_toggle_look_ahead(false)
+						toggle_look_ahead(false)
 						return false	# Object on other side of Block
 				elif new_target_obj is Block or new_target_obj is Door:
-					_toggle_look_ahead(false)
+					toggle_look_ahead(false)
 					return false	# Object on other side of Block
 			target_obj.position += dir * size
-			_toggle_look_ahead(false)
+			toggle_look_ahead(false)
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
 # ICE
 			if target_tile_data.get_custom_data("ice"):
 				if inventory["SKATES"] < 1:
+					if target_tile_data.get_custom_data("ice-dir").size() == 0:
+						var target_tile2 = Vector2i(
+							target_tile.x + dir.x,
+							target_tile.y + dir.y,
+						)
+						var target_tile_data2 = walls.get_cell_tile_data(target_tile2)
+						if target_tile_data2.get_custom_data("wall"):
+							slide_animation(dir, dir * -1)
+						else:
+							slide_animation(dir, dir)
+					else:
+						var dir_from: Vector2 = current_tile - target_tile
+						for i in target_tile_data.get_custom_data("ice-dir"):
+							if i != dir_from:
+								slide_animation(dir, i)
 					return false
 # WALL
 			elif target_tile_data.get_custom_data("wall"):
@@ -156,7 +171,7 @@ func slide_animation(dir: Vector2, next_tile: Vector2):
 	tween.tween_property(self, "position", new_pos, 0.13)
 	tween.tween_callback(move.bind(next_tile))
 
-func _toggle_look_ahead(enable: bool, target_obj: Object = null):
+func toggle_look_ahead(enable: bool, target_obj: Object = null):
 	if enable:
 		raycast.add_exception(target_obj)
 		raycast.target_position = raycast.target_position * 2

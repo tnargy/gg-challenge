@@ -18,7 +18,7 @@ func _on_goal_complete():
 
 func _on_player_death():
 	var timer := Timer.new()
-	timer.wait_time = 1
+	timer.wait_time = 0.5
 	timer.process_mode =Node.PROCESS_MODE_ALWAYS
 	timer.one_shot = true
 	timer.timeout.connect(_restart_level)
