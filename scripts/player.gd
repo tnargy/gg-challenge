@@ -41,29 +41,28 @@ func update_direction(dir: String):
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,384,32,32))
 			else:
-				sprite.set_region_rect(Rect2(192,384,32,32))
+				sprite.set_region_rect(Rect2(288,384,32,32))
 		"Left":
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,416,32,32))
 			else:
-				sprite.set_region_rect(Rect2(192,416,32,32))
+				sprite.set_region_rect(Rect2(288,416,32,32))
 		"Right":
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,480,32,32))
 			else:
-				sprite.set_region_rect(Rect2(192,480,32,32))
+				sprite.set_region_rect(Rect2(288,480,32,32))
 		"Down":
 			if swimming:
 				sprite.set_region_rect(Rect2(192-96,448,32,32))
 			else:
-				sprite.set_region_rect(Rect2(192,448,32,32))
+				sprite.set_region_rect(Rect2(288,448,32,32))
 			
 			
 func move(dir: String):
 	if _raycast_check(inputs[dir]):
 		position += inputs[dir] * size
 	update_direction(dir)
-	
 	
 func _raycast_check(dir: Vector2) -> bool:
 	raycast.target_position = dir * size
@@ -112,8 +111,21 @@ func _raycast_check(dir: Vector2) -> bool:
 			_toggle_look_ahead(false)
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
-			if target_tile_data.get_custom_data("wall"):
-				return false	# Wall
+			if target_tile_data.get_custom_data("ice"):
+				if inventory["SKATES"] < 1:
+					position += dir * size
+					match dir:
+							Vector2.UP:
+								move("UP")
+							Vector2.DOWN:
+								move("DOWN")
+							Vector2.LEFT:
+								move("Left")
+							Vector2.RIGHT:
+								move("Right")
+					return false
+			elif target_tile_data.get_custom_data("wall"):
+					return false	# Wall
 			elif target_tile_data.get_custom_data("water"):
 				if inventory["FLIPPERS"] < 1:
 					walls.set_cell(target_tile, 1, Vector2i(3,3))
@@ -131,6 +143,7 @@ func _raycast_check(dir: Vector2) -> bool:
 					death.emit()
 	else:
 		swimming = false
+	
 	return true	# Nothing in way
 	
 
