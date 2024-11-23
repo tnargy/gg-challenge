@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bb2rgbr0065td" path="res://scenes/player.tscn" id="6_2susb"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="7_vihtw"]
 [ext_resource type="PackedScene" uid="uid://0bkyv37l08aw" path="res://components/block.tscn" id="8_t4ksf"]
-[ext_resource type="PackedScene" uid="uid://1eqgg3v3yf0w" path="res://scenes/ant.tscn" id="9_roc7f"]
+[ext_resource type="PackedScene" uid="uid://1eqgg3v3yf0w" path="res://scenes/enemies/ant.tscn" id="9_roc7f"]
 
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)

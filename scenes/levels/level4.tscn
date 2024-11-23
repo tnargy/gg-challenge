@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cd5gidmcvbmjn" path="res://components/green_btn.tscn" id="8_g42kd"]
 [ext_resource type="PackedScene" uid="uid://4tdgo1qmvqwg" path="res://components/toggle_wall.tscn" id="9_d0ayo"]
 [ext_resource type="PackedScene" uid="uid://cpdncggaoge1s" path="res://components/blue_btn.tscn" id="12_cec83"]
-[ext_resource type="PackedScene" uid="uid://cdkbgb18mddnp" path="res://scenes/tank.tscn" id="13_5awen"]
+[ext_resource type="PackedScene" uid="uid://cdkbgb18mddnp" path="res://scenes/enemies/tank.tscn" id="13_5awen"]
 
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
@@ -22,7 +22,6 @@ time_limit = 100
 chips_needed = 9
 
 [node name="HUD" parent="." node_paths=PackedStringArray("level") instance=ExtResource("2_n7lus")]
-visible = false
 level = NodePath("..")
 
 [node name="Walls" type="TileMapLayer" parent="."]
