@@ -11,6 +11,9 @@ extends Node2D
 
 signal restart
 
+func _ready():
+	hud.visible = true
+
 func _on_goal_complete():
 	player.sprite.visible = false
 	world.timer.start()

@@ -1,17 +1,17 @@
-[gd_scene load_steps=14 format=4 uid="uid://cm52cuca5afwb"]
+[gd_scene load_steps=14 format=4 uid="uid://dxacuwplgqhg2"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_30gxt"]
 [ext_resource type="PackedScene" uid="uid://wej5s6wd0bwc" path="res://ui/hud.tscn" id="2_n7lus"]
 [ext_resource type="TileSet" uid="uid://ceknow582epea" path="res://components/walls.tres" id="3_vuxp6"]
 [ext_resource type="PackedScene" uid="uid://bsxko8rjjhnud" path="res://components/goal.tscn" id="4_4h4xb"]
 [ext_resource type="PackedScene" uid="uid://bb2rgbr0065td" path="res://scenes/player.tscn" id="5_4wndg"]
-[ext_resource type="PackedScene" uid="uid://cawamwtpth2ku" path="res://components/fire.tscn" id="6_mecfw"]
+[ext_resource type="PackedScene" path="res://components/fire.tscn" id="6_mecfw"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="6_qwitu"]
 [ext_resource type="PackedScene" uid="uid://ys7fnh5xwoey" path="res://components/door.tscn" id="7_coq3o"]
 [ext_resource type="PackedScene" uid="uid://0bkyv37l08aw" path="res://components/block.tscn" id="8_8k32m"]
-[ext_resource type="PackedScene" uid="uid://cd5gidmcvbmjn" path="res://components/green_btn.tscn" id="8_g42kd"]
-[ext_resource type="PackedScene" uid="uid://4tdgo1qmvqwg" path="res://components/toggle_wall.tscn" id="9_d0ayo"]
-[ext_resource type="PackedScene" uid="uid://cpdncggaoge1s" path="res://components/blue_btn.tscn" id="12_cec83"]
+[ext_resource type="PackedScene" path="res://components/green_btn.tscn" id="8_g42kd"]
+[ext_resource type="PackedScene" path="res://components/toggle_wall.tscn" id="9_d0ayo"]
+[ext_resource type="PackedScene" path="res://components/blue_btn.tscn" id="12_cec83"]
 [ext_resource type="PackedScene" uid="uid://cdkbgb18mddnp" path="res://scenes/enemies/tank.tscn" id="13_5awen"]
 
 [node name="Level" type="Node2D"]
@@ -138,8 +138,6 @@ walls = NodePath("../../Walls")
 [node name="Block5" parent="Blocks" node_paths=PackedStringArray("walls") instance=ExtResource("8_8k32m")]
 position = Vector2(240, 528)
 walls = NodePath("../../Walls")
-
-[node name="Buttons" type="Node2D" parent="."]
 
 [node name="Tanks" type="Node2D" parent="."]
 

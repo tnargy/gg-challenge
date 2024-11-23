@@ -4,7 +4,7 @@ extends Node2D
 @export var current_level: Level
 @onready var timer = $Timer
 var level: int = 1
-var max_level = 4
+var max_level = 5
 
 
 func _ready():
@@ -17,7 +17,8 @@ func _on_timer_timeout():
 		level += 1
 		save_furthest_level()
 		_loadLevel()
-	print("Congrats you beat all the levels")
+	else:
+		print("Congrats you beat all the levels")
 	
 	
 func _loadLevel():

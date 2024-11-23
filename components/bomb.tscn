@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d310jfv1aw50b"]
+
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="1_a777f"]
+[ext_resource type="Script" path="res://scripts/bomb.gd" id="1_f1utx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vrwu"]
+
+[node name="Bomb" type="Area2D"]
+collision_mask = 22
+script = ExtResource("1_f1utx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1vrwu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a777f")
+region_enabled = true
+region_rect = Rect2(64, 320, 32, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
