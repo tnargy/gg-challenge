@@ -31,6 +31,7 @@ func _handle_item_collected(type: String):
 		inventory_changed.emit(type, inventory[type])
 			
 func _input(event):
+	if event.is_action_pressed("Restart"): level._restart_level()
 	if sliding: return
 	
 	for dir in inputs.keys():

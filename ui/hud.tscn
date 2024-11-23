@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wej5s6wd0bwc"]
+[gd_scene load_steps=11 format=3 uid="uid://wej5s6wd0bwc"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_ph4jy"]
 [ext_resource type="FontFile" uid="uid://4xraiopocrg8" path="res://assets/ui/digital-7.ttf" id="2_40bn2"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b7f10x6at8dwx" path="res://assets/ui/flatLight03.png" id="5_i6wxl"]
 [ext_resource type="Texture2D" uid="uid://d3bbgefq5asmr" path="res://assets/ui/flatLight04.png" id="6_yqof4"]
 [ext_resource type="Texture2D" uid="uid://cfkro5nqul04s" path="res://assets/ui/flatLight08.png" id="7_73rfu"]
+[ext_resource type="Texture2D" uid="uid://dflworx5d2q3j" path="res://assets/return.png" id="8_hiyp2"]
+[ext_resource type="Texture2D" uid="uid://xhkkkeoggi30" path="res://assets/menuGrid.png" id="9_1i0nr"]
 
 [sub_resource type="Theme" id="Theme_puf8c"]
 default_font = ExtResource("2_40bn2")
@@ -181,6 +183,15 @@ position = Vector2(-11, 18)
 texture_normal = ExtResource("7_73rfu")
 action = "Down"
 visibility_mode = 1
+
+[node name="Reload" type="TouchScreenButton" parent="."]
+position = Vector2(815, 92)
+texture_normal = ExtResource("8_hiyp2")
+action = "Restart"
+
+[node name="Level Select" type="TouchScreenButton" parent="."]
+position = Vector2(885, 92)
+texture_normal = ExtResource("9_1i0nr")
 
 [connection signal="pressed" from="Virtual/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Virtual/Right" to="." method="_on_right_pressed"]
