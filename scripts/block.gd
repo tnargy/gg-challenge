@@ -1,7 +1,7 @@
 class_name Block
 extends Area2D
 
-@onready var walls = $"../Walls"
+@export var walls: TileMapLayer
 
 func _process(_delta):
 	var current_tile: Vector2i = walls.local_to_map(position)

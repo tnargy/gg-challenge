@@ -50,11 +50,13 @@ position = Vector2(144, 464)
 scale = Vector2(1, 1)
 door_color = "GATE"
 
-[node name="Block" parent="." instance=ExtResource("8_t4ksf")]
+[node name="Block" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("8_t4ksf")]
 position = Vector2(464, 464)
+walls = NodePath("../Walls")
 
-[node name="Block2" parent="." instance=ExtResource("8_t4ksf")]
+[node name="Block2" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("8_t4ksf")]
 position = Vector2(496, 464)
+walls = NodePath("../Walls")
 
 [node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("6_2susb")]
 position = Vector2(528, 464)

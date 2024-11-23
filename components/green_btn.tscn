@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd5gidmcvbmjn"]
+
+[ext_resource type="Script" path="res://scripts/green_btn.gd" id="1_vufhs"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_tbhs1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbex7"]
+
+[node name="GreenBtn" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_vufhs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nbex7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tbhs1")
+region_enabled = true
+region_rect = Rect2(64, 96, 32, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

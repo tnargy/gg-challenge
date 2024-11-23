@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpdncggaoge1s"]
+
+[ext_resource type="Script" path="res://scripts/blue_btn.gd" id="1_p5542"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_legt2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbex7"]
+
+[node name="BlueBtn" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_p5542")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nbex7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_legt2")
+region_enabled = true
+region_rect = Rect2(64, 256, 32, 32)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

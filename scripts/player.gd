@@ -73,8 +73,8 @@ func raycast_check(dir: Vector2) -> bool:
 		var target_obj = raycast.get_collider()
 		var current_tile: Vector2i = walls.local_to_map(position)
 		var target_tile: Vector2i = Vector2i(
-			current_tile.x + dir.x,
-			current_tile.y + dir.y,
+			current_tile.x + int(dir.x),
+			current_tile.y + int(dir.y),
 		)
 		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
 		# Walking into door
@@ -94,23 +94,24 @@ func raycast_check(dir: Vector2) -> bool:
 		elif target_obj is Block:
 			# Check push direction
 			toggle_look_ahead(true, target_obj)
-			
 			if raycast.is_colliding():
 				var new_target_obj = raycast.get_collider()
 				target_tile = Vector2i(
-					target_tile.x + dir.x,
-					target_tile.y + dir.y,
+					target_tile.x + int(dir.x),
+					target_tile.y + int(dir.y),
 				)
 				target_tile_data = walls.get_cell_tile_data(target_tile)
 				if new_target_obj is TileMapLayer:
 					if target_tile_data.get_custom_data("wall") or target_tile_data.get_custom_data("mud"):
 						toggle_look_ahead(false)
 						return false	# Object on other side of Block
-				elif new_target_obj is Block or new_target_obj is Door:
+				elif new_target_obj is Block or new_target_obj is Door or new_target_obj is ToggleWall:
 					toggle_look_ahead(false)
 					return false	# Object on other side of Block
 			target_obj.position += dir * size
 			toggle_look_ahead(false)
+		elif target_obj is ToggleWall and target_obj.toggle:
+			return false
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
 # ICE
@@ -118,8 +119,8 @@ func raycast_check(dir: Vector2) -> bool:
 				if inventory["SKATES"] < 1:
 					if target_tile_data.get_custom_data("ice-dir").size() == 0:
 						var target_tile2 = Vector2i(
-							target_tile.x + dir.x,
-							target_tile.y + dir.y,
+							target_tile.x + int(dir.x),
+							target_tile.y + int(dir.y),
 						)
 						var target_tile_data2 = walls.get_cell_tile_data(target_tile2)
 						if target_tile_data2.get_custom_data("wall"):

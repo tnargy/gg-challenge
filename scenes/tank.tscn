@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdkbgb18mddnp"]
+
+[ext_resource type="Script" path="res://scripts/tank.gd" id="1_j602i"]
+[ext_resource type="Texture2D" uid="uid://c5effbfpv60x2" path="res://assets/tank.png" id="2_s5nih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
+size = Vector2(32, 32)
+
+[node name="Tank" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_j602i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_suvy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s5nih")
+region_rect = Rect2(128, 0, 32, 32)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -16)
+collision_mask = 32
+collide_with_areas = true
