@@ -6,6 +6,7 @@ extends Node2D
 var level: int = 1
 var max_level = 4
 
+
 func _ready():
 	load_furthest_level()
 	if level > max_level: level = 1
@@ -29,6 +30,7 @@ func _loadLevel():
 	add_child(l)
 	current_level = l
 	current_level.restart.connect(_loadLevel)
+	current_level.hud.select_level_panel.visible = false
 	get_tree().paused = false
 	
 func save_furthest_level():

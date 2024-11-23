@@ -7,6 +7,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var world = $".."
+@onready var hud = $HUD
 
 signal restart
 

@@ -57,6 +57,10 @@ Restart={
 "deadzone": 0.5,
 "events": []
 }
+LevelSelect={
+"deadzone": 0.5,
+"events": []
+}
 
 [input_devices]
 
