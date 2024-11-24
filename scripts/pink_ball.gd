@@ -1,4 +1,4 @@
-class_name Tank
+class_name PinkBall
 extends TankAndBall
 
 func _physics_process(delta):
@@ -10,4 +10,4 @@ func _physics_process(delta):
 			speed_delta = speed
 			position += current_direction * 2 * size
 	else:
-		return
+		move

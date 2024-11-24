@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cmxl315tg0u4o"]
+[gd_scene load_steps=15 format=4 uid="uid://cmxl315tg0u4o"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_h38oy"]
 [ext_resource type="PackedScene" uid="uid://wej5s6wd0bwc" path="res://ui/hud.tscn" id="2_6m20r"]
@@ -8,11 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://4tdgo1qmvqwg" path="res://components/toggle_wall.tscn" id="7_nf01j"]
 [ext_resource type="PackedScene" uid="uid://cd5gidmcvbmjn" path="res://components/green_btn.tscn" id="8_2420i"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="9_bovxb"]
-[ext_resource type="PackedScene" uid="uid://d310jfv1aw50b" path="res://components/bomb.tscn" id="10_l7enw"]
-[ext_resource type="PackedScene" uid="uid://de5a6iku2qvn2" path="res://components/bear_trap_release.tscn" id="11_4e3yn"]
+[ext_resource type="PackedScene" uid="uid://d310jfv1aw50b" path="res://components/traps/bomb.tscn" id="10_l7enw"]
+[ext_resource type="PackedScene" uid="uid://de5a6iku2qvn2" path="res://components/traps/bear_trap_release.tscn" id="11_4e3yn"]
 [ext_resource type="PackedScene" uid="uid://bt7tobojwbx5e" path="res://scenes/enemies/glider.tscn" id="11_atxft"]
-[ext_resource type="PackedScene" uid="uid://djm6kojpay1tm" path="res://components/bear_trap.tscn" id="12_bcf3n"]
+[ext_resource type="PackedScene" uid="uid://djm6kojpay1tm" path="res://components/traps/bear_trap.tscn" id="12_bcf3n"]
 [ext_resource type="PackedScene" uid="uid://bb2rgbr0065td" path="res://scenes/player.tscn" id="13_60e46"]
+[ext_resource type="PackedScene" uid="uid://cy3i2aqybo3xs" path="res://scenes/enemies/pink_ball.tscn" id="14_010p2"]
 
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
@@ -119,6 +120,9 @@ position = Vector2(304, 304)
 z_index = 1
 position = Vector2(368, 560)
 walls = NodePath("../Walls")
+
+[node name="PinkBall" parent="." instance=ExtResource("14_010p2")]
+position = Vector2(272, 432)
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
 [connection signal="itemCollected" from="RedKey" to="Player" method="_handle_item_collected"]
