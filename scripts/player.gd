@@ -17,6 +17,7 @@ var inputs = {"Up": Vector2.UP,
 var inventory: Dictionary
 var swimming = false
 var sliding = false
+var stuck: bool = false
 
 func _ready():
 	inventory = {
@@ -63,7 +64,8 @@ func update_direction(dir: Vector2):
 			
 			
 func move(dir: Vector2):
-	if raycast_check(dir):
+	
+	if raycast_check(dir) and not stuck:
 		position += dir * size
 	update_direction(dir)
 	
@@ -181,7 +183,6 @@ func toggle_look_ahead(enable: bool, target_obj: Object = null):
 		raycast.clear_exceptions()
 		raycast.target_position = raycast.target_position / 2
 	raycast.force_raycast_update()
-
 
 func _on_area_entered(area):
 	if area is Enemy:

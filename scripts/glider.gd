@@ -6,13 +6,14 @@ extends Enemy
 @onready var walls: TileMapLayer = $"../Walls"
 
 var current_direction
-var speed = .5
+var speed = .25
 var speed_delta = speed
 
 func _ready():
 	current_direction = raycast.target_position / size
 		
 func _physics_process(delta):
+	if stuck: return
 	current_direction = raycast.target_position / size
 	if not raycast.is_colliding():
 		speed_delta -= delta
