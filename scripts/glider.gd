@@ -2,33 +2,79 @@ class_name Glider
 extends Enemy
 
 @onready var raycast = $RayCast2D
+@onready var size = raycast.target_position.length()
 @onready var walls: TileMapLayer = $"../Walls"
 
 var current_direction
-var speed = 100
-var size = 32
+var speed = .5
+var speed_delta = speed
+
+var wait = false
+
 
 func _ready():
-	current_direction = raycast.target_position * 2 / size
+	current_direction = raycast.target_position / size
 		
 func _physics_process(delta):
+	current_direction = raycast.target_position / size
 	if not raycast.is_colliding():
-		position += current_direction * delta * speed
+		speed_delta -= delta
+		if speed_delta <= 0:
+			speed_delta = speed
+			position += current_direction * 2 * size
 	else:
-		checkDirection(raycast)
-				
+		raycast.target_position = getNewDirection()
+		
+		
+func getNewDirection() -> Vector2:
+	var left_target
+	match raycast.target_position / size:
+		Vector2.UP:
+			left_target = Vector2.LEFT * size
+		Vector2.LEFT:
+			left_target = Vector2.DOWN * size
+		Vector2.RIGHT:
+			left_target = Vector2.UP * size
+		Vector2.DOWN:
+			left_target = Vector2.RIGHT * size
+		
+	var orig_target_position: Vector2 = raycast.target_position
+	raycast.target_position = left_target
+	if not checkDirection():
+		raycast.target_position = -1 * left_target
+		if not checkDirection():
+			new_rotate(orig_target_position.angle_to(-1 * orig_target_position))
+			return -1 * orig_target_position
+		else:
+			raycast.target_position = orig_target_position
+			new_rotate(orig_target_position.angle_to(-1 * left_target))
+			return -1 * left_target
+	else:
+		raycast.target_position = orig_target_position
+		new_rotate(orig_target_position.angle_to(left_target))
+		return left_target
 
-func new_rotate(new_rotation: int):
+
+func new_rotate(new_rotation: float):
+	wait = true
 	var tween = create_tween()
-	current_direction *= -1
 	tween.tween_property(self, "rotation", new_rotation, 0.2)
+	
 
-func checkDirection(ray: RayCast2D):
-	var target_obj = ray.get_collider()
-	if target_obj is TileMapLayer:
-		var target_tile = walls.local_to_map(target_obj.position)
+func checkDirection() -> bool:
+	raycast.force_raycast_update()
+	if raycast.is_colliding():
+		var target_obj = raycast.get_collider()
+		var current_tile: Vector2i = walls.local_to_map(position)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + int(raycast.target_position.x / size),
+			current_tile.y + int(raycast.target_position.y / size),
+		)
 		var target_tile_data = walls.get_cell_tile_data(target_tile)
 		if target_obj is TileMapLayer:
 			if target_tile_data.get_custom_data("wall"):
 				return false
+		elif target_obj is Door or target_obj is Block:
+			return false
+	return true
 				
