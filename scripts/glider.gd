@@ -39,6 +39,7 @@ func getNewDirection():
 	if not checkDirection():
 		raycast.target_position = -1 * left_target
 		if not checkDirection():
+			raycast.target_position = -1 * orig_target_position
 			new_rotate(orig_target_position.angle_to(-1 * orig_target_position))
 		else:
 			new_rotate(orig_target_position.angle_to(-1 * left_target))
@@ -49,8 +50,8 @@ func getNewDirection():
 func new_rotate(new_rotation: float):
 	var tween = create_tween()
 	new_rotation += $Sprite2D.rotation
-	$Sprite2D.rotate(new_rotation)
-	#tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
+	# $Sprite2D.rotate(new_rotation)
+	tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
 	print("blah")
 
 func checkDirection() -> bool:
