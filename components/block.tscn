@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="1_k8aig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx3lp"]
+size = Vector2(32, 32)
 
 [node name="Block" type="Area2D"]
 collision_layer = 16

@@ -9,9 +9,6 @@ var current_direction
 var speed = .5
 var speed_delta = speed
 
-var wait = false
-
-
 func _ready():
 	current_direction = raycast.target_position / size
 		
@@ -23,10 +20,9 @@ func _physics_process(delta):
 			speed_delta = speed
 			position += current_direction * 2 * size
 	else:
-		raycast.target_position = getNewDirection()
+		getNewDirection()
 		
-		
-func getNewDirection() -> Vector2:
+func getNewDirection():
 	var left_target
 	match raycast.target_position / size:
 		Vector2.UP:
@@ -44,22 +40,18 @@ func getNewDirection() -> Vector2:
 		raycast.target_position = -1 * left_target
 		if not checkDirection():
 			new_rotate(orig_target_position.angle_to(-1 * orig_target_position))
-			return -1 * orig_target_position
 		else:
-			raycast.target_position = orig_target_position
 			new_rotate(orig_target_position.angle_to(-1 * left_target))
-			return -1 * left_target
 	else:
-		raycast.target_position = orig_target_position
 		new_rotate(orig_target_position.angle_to(left_target))
-		return left_target
 
 
 func new_rotate(new_rotation: float):
-	wait = true
 	var tween = create_tween()
-	tween.tween_property(self, "rotation", new_rotation, 0.2)
-	
+	new_rotation += $Sprite2D.rotation
+	$Sprite2D.rotate(new_rotation)
+	#tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
+	print("blah")
 
 func checkDirection() -> bool:
 	raycast.force_raycast_update()

@@ -5,8 +5,8 @@
 [ext_resource type="TileSet" uid="uid://ceknow582epea" path="res://components/walls.tres" id="3_7fn8p"]
 [ext_resource type="PackedScene" uid="uid://bsxko8rjjhnud" path="res://components/goal.tscn" id="4_6bbu2"]
 [ext_resource type="PackedScene" uid="uid://ys7fnh5xwoey" path="res://components/door.tscn" id="5_ywpk4"]
-[ext_resource type="PackedScene" uid="uid://4tdgo1qmvqwg" path="res://components/toggle_wall.tscn" id="7_nf01j"]
-[ext_resource type="PackedScene" uid="uid://cd5gidmcvbmjn" path="res://components/green_btn.tscn" id="8_2420i"]
+[ext_resource type="PackedScene" path="res://components/toggle_wall.tscn" id="7_nf01j"]
+[ext_resource type="PackedScene" path="res://components/green_btn.tscn" id="8_2420i"]
 [ext_resource type="PackedScene" uid="uid://bibmabalk5pkq" path="res://components/item.tscn" id="9_bovxb"]
 [ext_resource type="PackedScene" uid="uid://d310jfv1aw50b" path="res://components/bomb.tscn" id="10_l7enw"]
 [ext_resource type="PackedScene" uid="uid://bt7tobojwbx5e" path="res://scenes/enemies/glider.tscn" id="11_atxft"]
@@ -32,7 +32,7 @@ position = Vector2(80, 112)
 
 [node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("13_60e46")]
 z_index = 1
-position = Vector2(336, 176)
+position = Vector2(240, 176)
 walls = NodePath("../Walls")
 
 [node name="Door" parent="." instance=ExtResource("5_ywpk4")]
@@ -105,6 +105,10 @@ position = Vector2(304, 304)
 
 [node name="Block" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("12_mpcuc")]
 position = Vector2(272, 112)
+walls = NodePath("../Walls")
+
+[node name="Block2" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("12_mpcuc")]
+position = Vector2(176, 144)
 walls = NodePath("../Walls")
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
