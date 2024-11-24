@@ -1,24 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdkbgb18mddnp"]
+[gd_scene load_steps=4 format=3 uid="uid://bt7tobojwbx5e"]
 
-[ext_resource type="Script" path="res://scripts/tank.gd" id="1_j602i"]
-[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_356lx"]
+[ext_resource type="Script" path="res://scripts/glider.gd" id="1_vtkew"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_5y5ey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
 size = Vector2(32, 32)
 
-[node name="Tank" type="Area2D"]
+[node name="Glider" type="Area2D"]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_j602i")
+script = ExtResource("1_vtkew")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_suvy0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_356lx")
+texture = ExtResource("2_5y5ey")
 region_enabled = true
-region_rect = Rect2(224, 384, 32, 32)
+region_rect = Rect2(256, 0, 32, 32)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, -16)

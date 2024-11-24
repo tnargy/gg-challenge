@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://1eqgg3v3yf0w"]
 
 [ext_resource type="Script" path="res://scripts/ant.gd" id="1_pwnhy"]
-[ext_resource type="Texture2D" uid="uid://dtdnhhjt0u2qi" path="res://assets/ant.png" id="2_54q8q"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_1ltxg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
 size = Vector2(32, 32)
@@ -16,5 +16,6 @@ scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_suvy0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_54q8q")
-region_rect = Rect2(128, 0, 32, 32)
+texture = ExtResource("2_1ltxg")
+region_enabled = true
+region_rect = Rect2(224, 0, 32, 32)
