@@ -13,3 +13,4 @@ func _process(_delta):
 	else:
 		$Closed.visible = false
 		$Open.visible = true
+		

@@ -53,7 +53,6 @@ func new_rotate(new_rotation: float):
 	new_rotation += $Sprite2D.rotation
 	# $Sprite2D.rotate(new_rotation)
 	tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
-	print("blah")
 
 func checkDirection() -> bool:
 	raycast.force_raycast_update()

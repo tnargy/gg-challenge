@@ -10,4 +10,4 @@ func _physics_process(delta):
 			speed_delta = speed
 			position += current_direction * 2 * size
 	else:
-		move
+		move()

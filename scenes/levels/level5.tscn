@@ -123,6 +123,7 @@ walls = NodePath("../Walls")
 
 [node name="PinkBall" parent="." instance=ExtResource("14_010p2")]
 position = Vector2(272, 432)
+start_vector = Vector2(16, 0)
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
 [connection signal="itemCollected" from="RedKey" to="Player" method="_handle_item_collected"]

@@ -1,6 +1,7 @@
 class_name TankAndBall
 extends Enemy
 
+@export var start_vector: Vector2 = Vector2(0,-16)
 @onready var raycast: RayCast2D = $RayCast2D
 @onready var size = raycast.target_position.length()
 
@@ -9,9 +10,7 @@ var speed = .25
 var speed_delta = speed
 
 func _ready():
-	var parent: Area2D = $"."
-	raycast.target_position += raycast.target_position.angle_to(parent.rotation)
-	current_direction = raycast.target_position / size
+	raycast. target_position = start_vector
 
 func move():
 	var tween = create_tween()
