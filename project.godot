@@ -75,6 +75,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_5="Block"
 2d_physics/layer_6="Wall"
 2d_physics/layer_7="Trap"
+2d_physics/layer_8="Element"
 
 [rendering]
 

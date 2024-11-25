@@ -1,7 +1,6 @@
 class_name TankAndBall
 extends Enemy
 
-@export var start_vector: Vector2 = Vector2(0,-16)
 @onready var raycast: RayCast2D = $RayCast2D
 @onready var size = raycast.target_position.length()
 

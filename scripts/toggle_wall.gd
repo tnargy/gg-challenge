@@ -10,7 +10,9 @@ func _process(_delta):
 	if toggle:
 		$Closed.visible = true
 		$Open.visible = false
+		$CollisionShape2D.disabled = false
 	else:
 		$Closed.visible = false
 		$Open.visible = true
+		$CollisionShape2D.disabled = true
 		

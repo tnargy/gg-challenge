@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddmmbqx6e22ko"]
+
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="1_h8ged"]
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_jt6y8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hevhw"]
+size = Vector2(32, 32)
+
+[node name="Fireball" type="Area2D"]
+collision_mask = 58
+script = ExtResource("1_jt6y8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hevhw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h8ged")
+region_enabled = true
+region_rect = Rect2(224, 128, 32, 32)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -16)
+collision_mask = 56

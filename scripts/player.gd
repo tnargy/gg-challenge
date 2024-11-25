@@ -24,6 +24,7 @@ func _ready():
 		"BLUE":0, "YELLOW":0, "GREEN":0, "RED":0,
 		"FLIPPERS":0, "FIRESHOES":0, "SKATES":0, "SUCTION":0}
 
+
 func _handle_item_collected(type: String):
 	if type == "CHIP":
 		level.chips_needed -= 1
@@ -114,6 +115,8 @@ func raycast_check(dir: Vector2) -> bool:
 			target_obj.position += dir * size
 			toggle_look_ahead(false)
 		elif target_obj is ToggleWall and target_obj.toggle:
+			return false
+		elif target_obj is Clone:
 			return false
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
