@@ -138,9 +138,18 @@ func raycast_check(dir: Vector2) -> bool:
 							if i != dir_from:
 								slide_animation(dir, i)
 					return false
-# WALL
+# WALLS
 			elif target_tile_data.get_custom_data("wall"):
-					return false
+				return false
+			elif target_tile_data.get_custom_data("bluewall"):
+				walls.set_cell(target_tile, 1, Vector2i(0,1))
+				return false
+			elif target_tile_data.get_custom_data("fakewall"):
+				walls.set_cell(target_tile, 1, Vector2i(0,0))
+				return true
+			elif target_tile_data.get_custom_data("hidden"):
+				walls.set_cell(target_tile, 1, Vector2i(0,1))
+				return false
 # WATER
 			elif target_tile_data.get_custom_data("water"):
 				if inventory["FLIPPERS"] < 1:

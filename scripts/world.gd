@@ -4,7 +4,7 @@ extends Node2D
 @export var current_level: Level
 @onready var timer = $Timer
 var level: int = 1
-var max_level = 5
+var max_level = 6
 
 
 func _ready():
