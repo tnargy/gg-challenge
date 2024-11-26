@@ -1,9 +1,10 @@
 class_name Ant
 extends Enemy
 
-@onready var walls: TileMapLayer = %Walls
+@export var walls: TileMapLayer
 @export_enum("UP", "RIGHT", "DOWN", "LEFT") var starting_direction: String
 @onready var sprite: Sprite2D = $Sprite2D
+
 var size = 32
 var speed = 0.75
 var speed_delta = speed

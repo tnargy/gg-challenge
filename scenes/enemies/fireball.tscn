@@ -7,7 +7,7 @@
 size = Vector2(32, 32)
 
 [node name="Fireball" type="Area2D"]
-collision_mask = 58
+collision_mask = 2
 script = ExtResource("1_jt6y8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,3 +21,4 @@ region_rect = Rect2(224, 128, 32, 32)
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, -16)
 collision_mask = 56
+collide_with_areas = true

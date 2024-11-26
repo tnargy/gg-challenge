@@ -65,7 +65,6 @@ func update_direction(dir: Vector2):
 			
 			
 func move(dir: Vector2):
-	
 	if raycast_check(dir) and not stuck:
 		position += dir * size
 	update_direction(dir)

@@ -10,8 +10,8 @@ func _ready():
 
 func createClone():
 	var clone: Enemy = scene.instantiate()
-	add_child(clone)
-	clone.start_vector = master.start_vector
-	clone.walls = master.walls
-	clone.raycast.target_position = clone.start_vector
-	clone.size = clone.raycast.target_position.length()
+	var add_later = func():
+		clone.walls = master.walls
+		clone.start_vector = master.start_vector
+		add_child(clone)
+	add_later.call_deferred()

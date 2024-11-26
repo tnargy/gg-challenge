@@ -1,9 +1,9 @@
 class_name GliderAndFireball
 extends Enemy
 
+@export var walls: TileMapLayer
 @onready var raycast = $RayCast2D
 @onready var size = raycast.target_position.length()
-@onready var walls: TileMapLayer = %Walls
 
 var current_direction
 var speed = .25
@@ -13,22 +13,37 @@ func _ready():
 	raycast.target_position = start_vector
 	current_direction = raycast.target_position / size
 		
+		
 func _physics_process(delta):
 	if stuck: return
 	current_direction = raycast.target_position / size
-	if not raycast.is_colliding():
-		speed_delta -= delta
-		if speed_delta <= 0:
-			speed_delta = speed
-			position += current_direction * 2 * size
-			checkDeath()
-	else:
-		getNewDirection()
+	if raycast.is_colliding():
+		var pos = position
+		if get_parent().name == "Clone":
+			pos = get_parent().position + position
+		var current_tile: Vector2i = walls.local_to_map(pos)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + current_direction.x,
+			current_tile.y + current_direction.y,
+		)
+		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
+		if target_tile_data:
+			if checkDeath(target_tile_data): return
+			if target_tile_data.get_custom_data("wall"):
+				getNewDirection()
+				return
+		else:
+			getNewDirection()
+			return
+	speed_delta -= delta
+	if speed_delta <= 0:
+		speed_delta = speed
+		position += current_direction * 2 * size
 
 
 func getNewDirection():
 	var left_target
-	match raycast.target_position / size:
+	match current_direction:
 		Vector2.UP:
 			left_target = Vector2.LEFT * size
 		Vector2.LEFT:
@@ -57,6 +72,7 @@ func new_rotate(new_rotation: float):
 	new_rotation += $Sprite2D.rotation
 	tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
 
+
 func checkDirection() -> bool:
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
@@ -78,5 +94,5 @@ func checkDirection() -> bool:
 func getDirectionPriority(_lt, _ot) -> Array:
 	return []
 
-func checkDeath():
-	pass
+func checkDeath(_data: TileData) -> bool:
+	return false
