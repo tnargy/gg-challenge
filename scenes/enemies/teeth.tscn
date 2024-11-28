@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://m11gvma1g0dj"]
+
+[ext_resource type="Script" path="res://scripts/teeth.gd" id="1_bx5gf"]
+[ext_resource type="Texture2D" uid="uid://cde600mwi66lm" path="res://assets/Color_Tileset.png" id="2_ebfcc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suvy0"]
+size = Vector2(32, 32)
+
+[node name="Teeth" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_bx5gf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_suvy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ebfcc")
+region_enabled = true
+region_rect = Rect2(256, 192, 32, 32)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 56
+collide_with_areas = true
