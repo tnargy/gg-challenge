@@ -3,6 +3,7 @@ extends CanvasLayer
 @export var level: Level
 @onready var select_level_panel = $SelectLevelPanel
 @onready var grid_container = $SelectLevelPanel/GridContainer
+@onready var world = $World
 
 const BLANK = preload("res://assets/blank.png")
 

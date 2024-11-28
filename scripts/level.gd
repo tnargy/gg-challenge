@@ -13,6 +13,7 @@ signal restart
 
 func _ready():
 	hud.visible = true
+	hud.unlockLevels(world.load_furthest_level())
 
 func _on_goal_complete():
 	player.sprite.visible = false

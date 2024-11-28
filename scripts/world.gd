@@ -3,12 +3,12 @@ extends Node2D
 
 @export var current_level: Level
 @onready var timer = $Timer
-var level: int = 1
+var level: int
 var max_level = 7
 
 
 func _ready():
-	load_furthest_level()
+	level = load_furthest_level()
 	if level > max_level: level = 1
 	_loadLevel()
 
@@ -40,8 +40,10 @@ func save_furthest_level():
 		file.store_string(str(level))
 	file.close()
 
-func load_furthest_level():
+func load_furthest_level() -> int:
 	var file = FileAccess.open("user://level_data.json", FileAccess.READ)
+	var l: int = 1
 	if file != null:
-		level = int(file.get_as_text())
+		l = int(file.get_as_text())
 		file.close()
+	return l

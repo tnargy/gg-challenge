@@ -50,11 +50,6 @@ position = Vector2(400, 752)
 scale = Vector2(1, 1)
 item_type = "CHIP"
 
-[node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("7_emvcp")]
-z_index = 1
-position = Vector2(176, 560)
-walls = NodePath("../Walls")
-
 [node name="Shoes" type="Node2D" parent="."]
 
 [node name="Flippers" parent="Shoes" instance=ExtResource("6_2bosg")]
@@ -83,12 +78,17 @@ Target = NodePath("../Teleport")
 position = Vector2(304, 656)
 Target = NodePath("../Teleport2")
 
+[node name="Player" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("7_emvcp")]
+z_index = 1
+position = Vector2(176, 560)
+walls = NodePath("../Walls")
+
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]
 [connection signal="itemCollected" from="Chips/Chip" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip2" to="Player" method="_handle_item_collected"]
 [connection signal="itemCollected" from="Chips/Chip3" to="Player" method="_handle_item_collected"]
+[connection signal="itemCollected" from="Shoes/Flippers" to="Player" method="_handle_item_collected"]
+[connection signal="itemCollected" from="Shoes/FireShoes" to="Player" method="_handle_item_collected"]
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="inventory_changed" from="Player" to="HUD" method="_on_player_inventory_changed"]
-[connection signal="itemCollected" from="Shoes/Flippers" to="Player" method="_handle_item_collected"]
-[connection signal="itemCollected" from="Shoes/FireShoes" to="Player" method="_handle_item_collected"]
