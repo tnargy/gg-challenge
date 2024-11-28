@@ -22,7 +22,7 @@ var inventory: Dictionary
 var swimming = false
 var sliding = false
 var stuck: bool = false
-var recently_teleported: bool = false
+var prev_pos: Vector2
 
 func _ready():
 	inventory = {
@@ -32,10 +32,10 @@ func _ready():
 		t.teleport.connect(_handle_teleport)
 
 func _handle_teleport(old_pos: Vector2, new_pos: Vector2):
-	if not recently_teleported:
-		position = new_pos
-		recently_teleported = true
-
+	var direction_entered = (position - prev_pos) / size
+	position = new_pos
+	move(direction_entered)
+	
 func _handle_item_collected(type: String):
 	if type == "CHIP":
 		level.chips_needed -= 1
@@ -80,9 +80,9 @@ func update_direction(dir: Vector2):
 			
 func move(dir: Vector2):
 	if raycast_check(dir) and not stuck:
+		prev_pos = position
 		position += dir * size
 	update_direction(dir)
-	recently_teleported = false
 	
 	
 func raycast_check(dir: Vector2) -> bool:
