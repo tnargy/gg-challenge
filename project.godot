@@ -27,6 +27,10 @@ project/assembly_name="GG Challenge"
 
 enabled=PackedStringArray()
 
+[global_group]
+
+teleport=""
+
 [input]
 
 Left={

@@ -14,16 +14,27 @@ var inputs = {"Up": Vector2.UP,
 			"Right": Vector2.RIGHT,
 			"Down": Vector2.DOWN,
 			"Left": Vector2.LEFT}
+var freeze = {Vector2.UP: false,
+			Vector2.RIGHT: false,
+			Vector2.DOWN: false,
+			Vector2.LEFT: false}
 var inventory: Dictionary
 var swimming = false
 var sliding = false
 var stuck: bool = false
+var recently_teleported: bool = false
 
 func _ready():
 	inventory = {
 		"BLUE":0, "YELLOW":0, "GREEN":0, "RED":0,
 		"FLIPPERS":0, "FIRESHOES":0, "SKATES":0, "SUCTION":0}
+	for t in get_tree().get_nodes_in_group("teleport"):
+		t.teleport.connect(_handle_teleport)
 
+func _handle_teleport(old_pos: Vector2, new_pos: Vector2):
+	if not recently_teleported:
+		position = new_pos
+		recently_teleported = true
 
 func _handle_item_collected(type: String):
 	if type == "CHIP":
@@ -38,7 +49,10 @@ func _input(event):
 	
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			move(inputs[dir])
+			if freeze[inputs[dir]]:
+				update_direction(inputs[dir])
+			else:
+				move(inputs[dir])
 
 func update_direction(dir: Vector2):
 	match dir:
@@ -68,6 +82,8 @@ func move(dir: Vector2):
 	if raycast_check(dir) and not stuck:
 		position += dir * size
 	update_direction(dir)
+	recently_teleported = false
+	
 	
 func raycast_check(dir: Vector2) -> bool:
 	raycast.target_position = dir * size
@@ -146,10 +162,16 @@ func raycast_check(dir: Vector2) -> bool:
 				return false
 			elif target_tile_data.get_custom_data("fakewall"):
 				walls.set_cell(target_tile, 1, Vector2i(0,0))
-				return true
 			elif target_tile_data.get_custom_data("hidden"):
 				walls.set_cell(target_tile, 1, Vector2i(0,1))
 				return false
+			elif target_tile_data.get_custom_data("recessed"):
+				walls.set_cell(target_tile, 1, Vector2i(0,1))
+			elif target_tile_data.get_custom_data("thin_wall") != Vector2.ZERO:
+				if -1 * dir == target_tile_data.get_custom_data("thin_wall"):
+					return false
+				freeze[target_tile_data.get_custom_data("thin_wall")] = true
+				return true
 # WATER
 			elif target_tile_data.get_custom_data("water"):
 				if inventory["FLIPPERS"] < 1:
@@ -170,14 +192,30 @@ func raycast_check(dir: Vector2) -> bool:
 					death.emit()
 # FORCE
 			elif target_tile_data.get_custom_data("force"):
+				swimming = false
 				if inventory["SUCTION"] < 1:
 					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))
-					return false
+# THIEF
+			elif target_tile_data.get_custom_data("thief"):
+				inventory["FLIPPERS"] = 0
+				inventory_changed.emit("FLIPPERS", inventory["FLIPPERS"])
+				inventory["FIRESHOES"] = 0
+				inventory_changed.emit("FIRESHOES", inventory["FIRESHOES"])
+				inventory["SKATES"] = 0
+				inventory_changed.emit("SKATES", inventory["SKATES"])
+				inventory["SUCTION"] = 0
+				inventory_changed.emit("SUCTION", inventory["SUCTION"])
+				swimming = false
+				sliding = false
+				for i in freeze:
+					freeze[i] = false
 	else:
 		swimming = false
 		sliding = false
-	
+		for i in freeze:
+			freeze[i] = false
 	return true	# Nothing in way
+
 
 func slide_animation(dir: Vector2, next_tile: Vector2):
 	sliding = true
