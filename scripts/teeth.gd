@@ -10,16 +10,33 @@ var size = 32
 var current_direction
 var speed = .5
 var speed_delta = speed
-
-func _ready():
-	current_direction = update_direction()
-	
 		
 func _physics_process(delta):
 	if stuck: return
-	raycast.target_position = player.position
+	raycast.target_position = (player.global_position - global_position) / 2
 	current_direction = update_direction()
-	if raycast.is_colliding(): return
+	if raycast.is_colliding(): 
+		var target_obj = raycast.get_collider()
+		var current_tile: Vector2i = walls.local_to_map(position)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + current_direction.x,
+			current_tile.y + current_direction.y,
+		)
+		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
+		if target_tile_data:
+			if target_tile_data.get_custom_data("fire"):
+				queue_free()
+				return
+			elif target_tile_data.get_custom_data("wall") \
+				or target_tile_data.get_custom_data("water") \
+				or target_tile_data.get_custom_data("mud") \
+				or target_tile_data.get_custom_data("gravel"):
+					return
+		elif target_obj is Block \
+			or target_obj is Item \
+			or target_obj is Door:
+				return
+
 	speed_delta -= delta
 	if speed_delta <= 0:
 		speed_delta = speed
@@ -31,12 +48,12 @@ func update_direction() -> Vector2:
 	var x_diff = player.position.x - position.x
 	
 	if abs(y_diff) > abs(x_diff):
-		if player.position.y > position.y:
+		if player.position.y < position.y:
 			sprite.set_region_rect(Rect2(256,128,32,32))
 			return Vector2.UP
-		elif player.position.y < position.y:
-			return Vector2.DOWN
+		elif player.position.y > position.y:
 			sprite.set_region_rect(Rect2(256,192,32,32))
+			return Vector2.DOWN
 	elif abs(y_diff) < abs(x_diff):
 		if player.position.x > position.x:
 			sprite.set_region_rect(Rect2(256,224,32,32))
@@ -45,12 +62,12 @@ func update_direction() -> Vector2:
 			sprite.set_region_rect(Rect2(256,160,32,32))
 			return Vector2.LEFT
 	else:
-		if player.position.y > position.y:
+		if player.position.y < position.y:
 			sprite.set_region_rect(Rect2(256,128,32,32))
 			return Vector2.UP
-		elif player.position.y < position.y:
-			return Vector2.DOWN
+		elif player.position.y > position.y:
 			sprite.set_region_rect(Rect2(256,192,32,32))
+			return Vector2.DOWN
 		
 		elif player.position.x > position.x:
 			sprite.set_region_rect(Rect2(256,224,32,32))
@@ -58,5 +75,4 @@ func update_direction() -> Vector2:
 		elif player.position.x < position.x:
 			sprite.set_region_rect(Rect2(256,160,32,32))
 			return Vector2.LEFT
-        else:
-            return Vector2.ZERO
+	return Vector2.ZERO

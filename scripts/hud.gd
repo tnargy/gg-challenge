@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var level: Level
 @onready var select_level_panel = $SelectLevelPanel
 @onready var grid_container = $SelectLevelPanel/GridContainer
-@onready var world = $World
+#@onready var world = $World
 
 const BLANK = preload("res://assets/blank.png")
 
@@ -44,7 +44,8 @@ func unlockLevels(l: int):
 	for i in len(children):
 		if i < l:
 			children[i].disabled = false
-			children[i].pressed.connect(loadLevel.bind(i+1))
+			if not children[i].pressed.is_connected:
+				children[i].pressed.connect(loadLevel.bind(i+1))
 			children[i].get_child(0).visible = false
 
 func loadLevel(l: int):
