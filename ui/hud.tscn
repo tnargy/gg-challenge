@@ -347,6 +347,22 @@ offset_bottom = 55.0
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("10_k8ayi")
 
+[node name="Level08" type="Button" parent="SelectLevelPanel/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("Theme_uen4f")
+text = "08"
+
+[node name="TextureRect" type="TextureRect" parent="SelectLevelPanel/GridContainer/Level08"]
+modulate = Color(0.72549, 0.482353, 0, 1)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 55.0
+offset_bottom = 55.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_k8ayi")
+
 [connection signal="pressed" from="Virtual/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Virtual/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Virtual/Down" to="." method="_on_down_pressed"]

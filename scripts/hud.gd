@@ -44,8 +44,7 @@ func unlockLevels(l: int):
 	for i in len(children):
 		if i < l:
 			children[i].disabled = false
-			if not children[i].pressed.is_connected:
-				children[i].pressed.connect(loadLevel.bind(i+1))
+			children[i].pressed.connect(loadLevel.bind(i+1))
 			children[i].get_child(0).visible = false
 
 func loadLevel(l: int):

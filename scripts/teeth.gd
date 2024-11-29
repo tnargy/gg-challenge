@@ -23,7 +23,11 @@ func _physics_process(delta):
 			current_tile.y + current_direction.y,
 		)
 		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
-		if target_tile_data:
+		if target_obj is Block \
+			or target_obj is Item \
+			or target_obj is Door:
+				return
+		elif target_tile_data:
 			if target_tile_data.get_custom_data("fire"):
 				queue_free()
 				return
@@ -32,10 +36,6 @@ func _physics_process(delta):
 				or target_tile_data.get_custom_data("mud") \
 				or target_tile_data.get_custom_data("gravel"):
 					return
-		elif target_obj is Block \
-			or target_obj is Item \
-			or target_obj is Door:
-				return
 
 	speed_delta -= delta
 	if speed_delta <= 0:
