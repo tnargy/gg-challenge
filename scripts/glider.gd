@@ -3,5 +3,5 @@ extends GliderAndFireball
 
 
 func getDirectionPriority(lt, ot) -> Array:
-	return [lt, -2*lt, -1*ot]
+	return [lt, -1*lt, -1*ot]
 	

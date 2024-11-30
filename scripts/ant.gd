@@ -62,10 +62,12 @@ func move():
 func check_direction() -> bool:
 	var target_tile_data: TileData = walls.get_cell_tile_data(left_target_tile)
 	if target_tile_data \
-			and target_tile_data.get_custom_data("wall"):
+			and (target_tile_data.get_custom_data("wall") \
+			or target_tile_data.get_custom_data("gravel")):
 		target_tile_data = walls.get_cell_tile_data(forward_target_tile)
 		if target_tile_data \
-				and target_tile_data.get_custom_data("wall"):
+				and (target_tile_data.get_custom_data("wall") \
+				or target_tile_data.get_custom_data("gravel")):
 			current_direction = (current_direction + 1) % 4
 			sprite.rotate(deg_to_rad(90))
 			return false

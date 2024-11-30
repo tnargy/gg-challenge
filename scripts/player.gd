@@ -9,6 +9,7 @@ extends Area2D
 signal inventory_changed
 signal death
 
+var tween: Tween
 var size = 32
 var inputs = {"Up": Vector2.UP,
 			"Right": Vector2.RIGHT,
@@ -31,7 +32,7 @@ func _ready():
 	for t in get_tree().get_nodes_in_group("teleport"):
 		t.teleport.connect(_handle_teleport)
 
-func _handle_teleport(old_pos: Vector2, new_pos: Vector2):
+func _handle_teleport(_old_pos: Vector2, new_pos: Vector2):
 	var direction_entered = (position - prev_pos) / size
 	position = new_pos
 	move(direction_entered)
@@ -49,6 +50,7 @@ func _input(event):
 	
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
+			if tween != null: tween.kill()
 			if freeze[inputs[dir]]:
 				update_direction(inputs[dir])
 			else:
@@ -138,6 +140,7 @@ func raycast_check(dir: Vector2) -> bool:
 # ICE
 			if target_tile_data.get_custom_data("ice"):
 				if inventory["SKATES"] < 1:
+					sliding = true
 					if target_tile_data.get_custom_data("ice-dir").size() == 0:
 						var target_tile2 = Vector2i(
 							target_tile.x + int(dir.x),
@@ -194,8 +197,7 @@ func raycast_check(dir: Vector2) -> bool:
 			elif target_tile_data.get_custom_data("force"):
 				swimming = false
 				if inventory["SUCTION"] < 1:
-					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))
-# THIEF
+					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))# THIEF
 			elif target_tile_data.get_custom_data("thief"):
 				inventory["FLIPPERS"] = 0
 				inventory_changed.emit("FLIPPERS", inventory["FLIPPERS"])
@@ -218,10 +220,9 @@ func raycast_check(dir: Vector2) -> bool:
 
 
 func slide_animation(dir: Vector2, next_tile: Vector2):
-	sliding = true
 	var new_pos = position + dir * size
-	var tween = create_tween()
-	tween.tween_property(self, "position", new_pos, 0.13)
+	tween = create_tween()
+	tween.tween_property(self, "position", new_pos, 0.1)
 	tween.tween_callback(move.bind(next_tile))
 
 func toggle_look_ahead(enable: bool, target_obj: Object = null):

@@ -3,7 +3,7 @@ extends GliderAndFireball
 
 
 func getDirectionPriority(lt, ot) -> Array:
-	return [-2*lt, lt, -1*ot]
+	return [-1*lt, lt, -1*ot]
 
 
 func checkDeath(target_tile_data: TileData) -> bool:
