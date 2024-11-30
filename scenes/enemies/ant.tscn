@@ -19,3 +19,7 @@ shape = SubResource("RectangleShape2D_suvy0")
 texture = ExtResource("2_1ltxg")
 region_enabled = true
 region_rect = Rect2(224, 0, 32, 32)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -16)
+collision_mask = 61

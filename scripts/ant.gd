@@ -4,6 +4,7 @@ extends Enemy
 @export var walls: TileMapLayer
 @export_enum("UP", "RIGHT", "DOWN", "LEFT") var starting_direction: String
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var raycast: RayCast2D = $RayCast2D
 
 var size = 32
 var speed = 0.75
@@ -60,14 +61,24 @@ func move():
 		position += direction_order[current_direction] * size
 	
 func check_direction() -> bool:
+	var target_obj = null
+	raycast.target_position = walls.map_to_local(left_target_tile)
+	if raycast.is_colliding():
+		target_obj = raycast.get_collider()
 	var target_tile_data: TileData = walls.get_cell_tile_data(left_target_tile)
 	if target_tile_data \
 			and (target_tile_data.get_custom_data("wall") \
-			or target_tile_data.get_custom_data("gravel")):
+			or target_tile_data.get_custom_data("gravel")) \
+			or (target_obj is Item or target_obj is Enemy):
+		target_obj = null
+		raycast.target_position = walls.map_to_local(forward_target_tile)
+		if raycast.is_colliding():
+			target_obj = raycast.get_collider()
 		target_tile_data = walls.get_cell_tile_data(forward_target_tile)
 		if target_tile_data \
 				and (target_tile_data.get_custom_data("wall") \
-				or target_tile_data.get_custom_data("gravel")):
+				or target_tile_data.get_custom_data("gravel")) \
+				or (target_obj is Item or target_obj is Enemy):
 			current_direction = (current_direction + 1) % 4
 			sprite.rotate(deg_to_rad(90))
 			return false
