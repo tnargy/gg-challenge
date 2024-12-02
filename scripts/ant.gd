@@ -2,87 +2,100 @@ class_name Ant
 extends Enemy
 
 @export var walls: TileMapLayer
-@export_enum("UP", "RIGHT", "DOWN", "LEFT") var starting_direction: String
-@onready var sprite: Sprite2D = $Sprite2D
 @onready var raycast: RayCast2D = $RayCast2D
+@onready var size = raycast.target_position.length()
 
-var size = 32
-var speed = 0.75
-var speed_delta = speed
 var current_direction
-var direction_order = [
-	Vector2.UP,
-	Vector2.RIGHT,
-	Vector2.DOWN,
-	Vector2.LEFT,
-]
-var left_target_tile: Vector2i
-var forward_target_tile: Vector2i
+var speed = .25
+var speed_delta = speed
 
 func _ready():
-	match starting_direction:
-		"UP":
-			current_direction = 0
-		"RIGHT":
-			current_direction = 1
-			sprite.rotate(deg_to_rad(90))
-		"DOWN":
-			current_direction = 2
-			sprite.rotate(deg_to_rad(180))
-		"LEFT":
-			current_direction = 3
-			sprite.rotate(deg_to_rad(-90))
+	raycast.target_position = start_vector
+	current_direction = raycast.target_position / size
 
 
-func _process(delta):
+func _physics_process(delta):
+	if stuck: return
+	current_direction = raycast.target_position / size
+	if raycast.is_colliding():
+		var pos = position
+		if get_parent().name == "Clone":
+			pos = get_parent().position + position
+		var current_tile: Vector2i = walls.local_to_map(pos)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + current_direction.x,
+			current_tile.y + current_direction.y,
+		)
+		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
+		if target_tile_data:
+			if checkDeath(target_tile_data): return
+			if target_tile_data.get_custom_data("wall"):
+				getNewDirection()
+				return
+		else:
+			getNewDirection()
+			return
 	speed_delta -= delta
 	if speed_delta <= 0:
 		speed_delta = speed
-		move()
+		position += current_direction * 2 * size
 
 
-func move():
-	var current_tile: Vector2i = walls.local_to_map(position)
-	var direction = direction_order[current_direction]
-	match direction:
+func getNewDirection():
+	var left_target
+	match current_direction:
 		Vector2.UP:
-			left_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
-			forward_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
+			left_target = Vector2.LEFT * size
 		Vector2.LEFT:
-			left_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
-			forward_target_tile = Vector2i(current_tile.x - 1, current_tile.y)
-		Vector2.DOWN:
-			left_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
-			forward_target_tile = Vector2i(current_tile.x, current_tile.y + 1)
+			left_target = Vector2.DOWN * size
 		Vector2.RIGHT:
-			left_target_tile = Vector2i(current_tile.x, current_tile.y - 1)
-			forward_target_tile = Vector2i(current_tile.x + 1, current_tile.y)
-	if check_direction():
-		position += direction_order[current_direction] * size
-	
-func check_direction() -> bool:
-	var target_obj = null
-	raycast.target_position = walls.map_to_local(left_target_tile)
+			left_target = Vector2.UP * size
+		Vector2.DOWN:
+			left_target = Vector2.RIGHT * size
+		
+	var orig_target_position: Vector2 = raycast.target_position
+	var dirPriority = getDirectionPriority(left_target, orig_target_position)
+	raycast.target_position = dirPriority[0]
+	if not checkDirection():
+		raycast.target_position = dirPriority[1]
+		if not checkDirection():
+			raycast.target_position = dirPriority[2]
+			new_rotate(orig_target_position.angle_to(dirPriority[2]))
+		else:
+			new_rotate(orig_target_position.angle_to(dirPriority[1]))
+	else:
+		new_rotate(orig_target_position.angle_to(dirPriority[0]))
+
+
+func new_rotate(new_rotation: float):
+	var tween = create_tween()
+	new_rotation += $Sprite2D.rotation
+	tween.tween_property($Sprite2D, "rotation", new_rotation, 0.2)
+
+
+func checkDirection() -> bool:
+	raycast.force_raycast_update()
 	if raycast.is_colliding():
-		target_obj = raycast.get_collider()
-	var target_tile_data: TileData = walls.get_cell_tile_data(left_target_tile)
-	if target_tile_data \
-			and (target_tile_data.get_custom_data("wall") \
-			or target_tile_data.get_custom_data("gravel")) \
-			or (target_obj is Item or target_obj is Enemy):
-		target_obj = null
-		raycast.target_position = walls.map_to_local(forward_target_tile)
-		if raycast.is_colliding():
-			target_obj = raycast.get_collider()
-		target_tile_data = walls.get_cell_tile_data(forward_target_tile)
-		if target_tile_data \
-				and (target_tile_data.get_custom_data("wall") \
-				or target_tile_data.get_custom_data("gravel")) \
-				or (target_obj is Item or target_obj is Enemy):
-			current_direction = (current_direction + 1) % 4
-			sprite.rotate(deg_to_rad(90))
+		var target_obj = raycast.get_collider()
+		var current_tile: Vector2i = walls.local_to_map(position)
+		var target_tile: Vector2i = Vector2i(
+			current_tile.x + int(raycast.target_position.x / size),
+			current_tile.y + int(raycast.target_position.y / size),
+		)
+		var target_tile_data = walls.get_cell_tile_data(target_tile)
+		if target_obj is TileMapLayer:
+			if target_tile_data.get_custom_data("wall"):
+				return false
+		elif target_obj is Door or target_obj is Block:
 			return false
-		return true
-	current_direction = (current_direction - 1) % 4
-	sprite.rotate(deg_to_rad(-90))
 	return true
+				
+
+func getDirectionPriority(lt, ot) -> Array:
+	return [lt, ot, -1*lt, -1*ot]
+
+func checkDeath(_data: TileData) -> bool:
+	if target_tile_data.get_custom_data("water"):
+		queue_free()
+		return true
+	return false
