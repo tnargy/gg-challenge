@@ -197,7 +197,8 @@ func raycast_check(dir: Vector2) -> bool:
 			elif target_tile_data.get_custom_data("force"):
 				swimming = false
 				if inventory["SUCTION"] < 1:
-					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))# THIEF
+					slide_animation(dir, target_tile_data.get_custom_data("force-dir"))
+# THIEF
 			elif target_tile_data.get_custom_data("thief"):
 				inventory["FLIPPERS"] = 0
 				inventory_changed.emit("FLIPPERS", inventory["FLIPPERS"])

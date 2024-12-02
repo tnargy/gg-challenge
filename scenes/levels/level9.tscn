@@ -138,66 +138,52 @@ start_vector = Vector2(16, 0)
 [node name="Ant" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(304, 80)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
+start_vector = Vector2(0, -32)
 
 [node name="Ant2" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(208, 80)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
+start_vector = Vector2(0, -32)
 
 [node name="Ant3" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
-position = Vector2(111.5, 80)
+position = Vector2(112, 80)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
+start_vector = Vector2(0, -32)
 
 [node name="Ant4" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(48, 112)
 walls = NodePath("../../Walls")
-starting_direction = "UP"
 
 [node name="Ant5" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
-position = Vector2(111.5, 144)
-walls = NodePath("../../Walls")
-starting_direction = "LEFT"
-start_vector = Vector2(-16, 0)
-
-[node name="Ant6" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
-position = Vector2(208, 144)
-walls = NodePath("../../Walls")
-starting_direction = "LEFT"
-start_vector = Vector2(-16, 0)
-
-[node name="Ant7" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
-position = Vector2(304, 144)
-walls = NodePath("../../Walls")
-starting_direction = "LEFT"
-start_vector = Vector2(-16, 0)
-
-[node name="Ant8" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(336, 176)
 walls = NodePath("../../Walls")
-starting_direction = "UP"
+
+[node name="Ant6" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
+position = Vector2(112, 144)
+walls = NodePath("../../Walls")
+start_vector = Vector2(0, 32)
+
+[node name="Ant7" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
+position = Vector2(208, 144)
+walls = NodePath("../../Walls")
+start_vector = Vector2(0, 32)
+
+[node name="Ant8" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
+position = Vector2(304, 144)
+walls = NodePath("../../Walls")
+start_vector = Vector2(0, 32)
 
 [node name="Ant9" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(272, 208)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
 
 [node name="Ant10" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(176, 208)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
 
 [node name="Ant11" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(80, 208)
 walls = NodePath("../../Walls")
-starting_direction = "RIGHT"
-start_vector = Vector2(16, 0)
 
 [node name="Chips" type="Node2D" parent="."]
 

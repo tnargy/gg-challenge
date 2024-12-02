@@ -7,9 +7,6 @@ extends CanvasLayer
 
 const BLANK = preload("res://assets/blank.png")
 
-func _ready():
-	unlockLevels(level.level_number)
-
 func _process(_delta):
 	%Level.text = str(level.level_number)
 	%Chips.text = str(level.chips_needed)
