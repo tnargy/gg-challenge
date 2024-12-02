@@ -212,6 +212,9 @@ func raycast_check(dir: Vector2) -> bool:
 				sliding = false
 				for i in freeze:
 					freeze[i] = false
+			elif target_tile_data.get_custom_data("gravel"):
+				swimming = false;
+				sliding = false
 	else:
 		swimming = false
 		sliding = false
