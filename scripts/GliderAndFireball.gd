@@ -18,6 +18,7 @@ func _physics_process(delta):
 	if stuck: return
 	current_direction = raycast.target_position / size
 	if raycast.is_colliding():
+		var target_obj = raycast.get_collider()
 		var pos = position
 		if get_parent().name == "Clone":
 			pos = get_parent().position + position
@@ -27,7 +28,10 @@ func _physics_process(delta):
 			current_tile.y + current_direction.y,
 		)
 		var target_tile_data: TileData = walls.get_cell_tile_data(target_tile)
-		if target_tile_data:
+		if target_obj is Door or target_obj is Block:
+			getNewDirection()
+			return
+		elif target_tile_data:
 			if checkDeath(target_tile_data): return
 			if target_tile_data.get_custom_data("wall"):
 				getNewDirection()

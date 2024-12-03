@@ -5,4 +5,9 @@ extends Area2D
 
 
 func _on_area_entered(_area):
-	trap._open_trap()
+	trap.open_trap()
+	print(_area)
+
+
+func _on_area_exited(_area):
+	trap.armed = true
