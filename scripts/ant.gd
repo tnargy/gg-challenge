@@ -55,7 +55,8 @@ func checkDirection() -> bool:
 		checkDeath(target_tile_data)
 		if target_obj is TileMapLayer:
 			if target_tile_data.get_custom_data("wall") \
-				or target_tile_data.get_custom_data("gravel"):
+				or target_tile_data.get_custom_data("gravel") \
+				or target_tile_data.get_custom_data("fire"):
 					return false
 		elif target_obj is Door \
 			or target_obj is Block \
