@@ -11,7 +11,7 @@
 scale = Vector2(2, 2)
 script = ExtResource("1_x2e1a")
 level_number = 10
-time_limit = 100
+time_limit = 80
 
 [node name="HUD" parent="." node_paths=PackedStringArray("level") instance=ExtResource("2_ccr46")]
 visible = false

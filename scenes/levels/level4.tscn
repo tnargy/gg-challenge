@@ -18,7 +18,7 @@
 scale = Vector2(2, 2)
 script = ExtResource("1_30gxt")
 level_number = 4
-time_limit = 100
+time_limit = 150
 chips_needed = 9
 
 [node name="HUD" parent="." node_paths=PackedStringArray("level") instance=ExtResource("2_n7lus")]
