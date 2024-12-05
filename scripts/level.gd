@@ -10,11 +10,23 @@ extends Node2D
 @onready var world = $".."
 @onready var hud = $HUD
 
+var level_timer := Timer.new()
 signal restart
 
 func _ready():
 	hud.visible = true
 	hud.unlockLevels(world.load_furthest_level())
+	level_timer.wait_time = time_limit
+	level_timer.one_shot = true
+	level_timer.autostart = time_limit > 0
+	level_timer.connect("timeout", _restart_level)
+	add_child(level_timer)
+
+
+func _process(_delta):
+	if time_limit >= 0:
+		time_limit = int(level_timer.time_left)
+
 
 func _on_goal_complete():
 	player.sprite.visible = false
