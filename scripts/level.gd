@@ -2,6 +2,7 @@ class_name Level
 extends Node2D
 
 @export var level_name: String
+@export var hint_text: String
 @export var level_number: int
 @export var time_limit: int
 @export var chips_needed: int
@@ -14,6 +15,7 @@ var level_timer := Timer.new()
 signal restart
 
 func _ready():
+	player.hint.connect(hud.hint)
 	hud.visible = true
 	hud.unlockLevels(world.load_furthest_level())
 	if time_limit > 0:

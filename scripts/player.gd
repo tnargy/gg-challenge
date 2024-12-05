@@ -7,6 +7,7 @@ extends Area2D
 @onready var raycast: RayCast2D = $RayCast2D
 
 signal inventory_changed
+signal hint
 signal death
 
 var tween: Tween
@@ -88,6 +89,7 @@ func move(dir: Vector2):
 	
 	
 func raycast_check(dir: Vector2) -> bool:
+	hint.emit(false)
 	raycast.target_position = dir * size
 	raycast.force_raycast_update()
 	if raycast.is_colliding():
@@ -137,6 +139,8 @@ func raycast_check(dir: Vector2) -> bool:
 			return false
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
+			if target_tile_data.get_custom_data("hint"):
+				hint.emit(true)
 # ICE
 			if target_tile_data.get_custom_data("ice"):
 				if inventory["SKATES"] < 1:
