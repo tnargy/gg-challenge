@@ -16,15 +16,16 @@ signal restart
 func _ready():
 	hud.visible = true
 	hud.unlockLevels(world.load_furthest_level())
-	level_timer.wait_time = time_limit
-	level_timer.one_shot = true
-	level_timer.autostart = time_limit > 0
-	level_timer.connect("timeout", _restart_level)
-	add_child(level_timer)
+	if time_limit > 0:
+		level_timer.wait_time = time_limit + 1
+		level_timer.one_shot = true
+		level_timer.autostart = time_limit > 0
+		level_timer.connect("timeout", _restart_level)
+		add_child(level_timer)
 
 
 func _process(_delta):
-	if time_limit >= 0:
+	if level_timer.time_left > 0:
 		time_limit = int(level_timer.time_left)
 
 
