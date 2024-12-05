@@ -10,6 +10,7 @@
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_x2e1a")
+level_name = "Brushfire"
 level_number = 10
 time_limit = 80
 

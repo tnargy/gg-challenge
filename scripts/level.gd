@@ -1,6 +1,7 @@
 class_name Level
 extends Node2D
 
+@export var level_name: String
 @export var level_number: int
 @export var time_limit: int
 @export var chips_needed: int

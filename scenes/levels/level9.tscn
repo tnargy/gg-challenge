@@ -19,6 +19,7 @@
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_jhp7y")
+level_name = "Nuts and Bolts"
 level_number = 9
 time_limit = 400
 chips_needed = 9

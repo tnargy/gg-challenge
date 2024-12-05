@@ -80,11 +80,11 @@ text = "1"
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
 layout_mode = 2
 
-[node name="Chips_Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer2"]
+[node name="Time_Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme = SubResource("Theme_puf8c")
 theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
-text = "Chips Remaining:"
+text = "Time:"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -94,7 +94,32 @@ size_flags_horizontal = 0
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="Chips" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="Time" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_puf8c")
+theme_override_colors/font_color = Color(0, 0.709804, 0, 1)
+text = "1"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Chips_Label" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme = SubResource("Theme_puf8c")
+theme_override_colors/font_color = Color(0.666667, 0, 0, 1)
+text = "Chips Remaining:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Control" type="Control" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer3/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Chips" type="Label" parent="HBoxContainer/ColorRect/VBoxContainer/VBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0

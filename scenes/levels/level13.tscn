@@ -9,8 +9,9 @@
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_vapxi")
+level_name = "Southpole"
 level_number = 13
-time_limit = 0
+time_limit = -1
 
 [node name="HUD" parent="." node_paths=PackedStringArray("level") instance=ExtResource("2_eoq02")]
 visible = false

@@ -12,6 +12,7 @@
 [node name="Level" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_txngn")
+level_name = "Lesson 7"
 level_number = 7
 time_limit = 150
 chips_needed = 3

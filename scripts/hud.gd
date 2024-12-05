@@ -3,15 +3,19 @@ extends CanvasLayer
 @export var level: Level
 @onready var select_level_panel = $SelectLevelPanel
 @onready var grid_container = $SelectLevelPanel/GridContainer
-#@onready var world = $World
 
 const BLANK = preload("res://assets/blank.png")
 
 func _process(_delta):
-	%Level.text = str(level.level_number)
-	%Chips.text = str(level.chips_needed)
 	if level.chips_needed <= 0:
 		%Chips.add_theme_color_override("font_color", "#d3c900")
+	if level.time_limit <= 0:
+		%Time.add_theme_color_override("font_color", "#d3c900")
+	%Time.text = str(level.time_limit)
+	if level.time_limit == -1:
+		%Time.text = "---"
+	%Level.text = str(level.level_number)
+	%Chips.text = str(level.chips_needed)
 
 func _input(event):
 	if event.is_action_pressed("LevelSelect"):
