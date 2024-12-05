@@ -10,6 +10,8 @@ const BLANK = preload("res://assets/blank.png")
 func _process(_delta):
 	%Level.text = str(level.level_number)
 	%Chips.text = str(level.chips_needed)
+	if level.chips_needed <= 0:
+		%Chips.add_theme_color_override("font_color", "#d3c900")
 
 func _input(event):
 	if event.is_action_pressed("LevelSelect"):
