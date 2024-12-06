@@ -26,17 +26,18 @@ var sliding = false
 var stuck: bool = false
 var prev_pos: Vector2
 
+
 func _ready():
 	inventory = {
 		"BLUE":0, "YELLOW":0, "GREEN":0, "RED":0,
 		"FLIPPERS":0, "FIRESHOES":0, "SKATES":0, "SUCTION":0}
-	for t in get_tree().get_nodes_in_group("teleport"):
-		t.teleport.connect(_handle_teleport)
 
-func _handle_teleport(_old_pos: Vector2, new_pos: Vector2):
+
+func teleport(new_pos: Vector2):
 	var direction_entered = (position - prev_pos) / size
 	position = new_pos
 	move(direction_entered)
+	
 	
 func _handle_item_collected(type: String):
 	if type == "CHIP":
@@ -44,6 +45,7 @@ func _handle_item_collected(type: String):
 	else:
 		inventory[type] += 1
 		inventory_changed.emit(type, inventory[type])
+			
 			
 func _input(event):
 	if event.is_action_pressed("Restart"): level._restart_level()
@@ -56,6 +58,7 @@ func _input(event):
 				update_direction(inputs[dir])
 			else:
 				move(inputs[dir])
+
 
 func update_direction(dir: Vector2):
 	match dir:
@@ -131,6 +134,7 @@ func raycast_check(dir: Vector2) -> bool:
 				elif new_target_obj is Block or new_target_obj is Door or new_target_obj is ToggleWall:
 					toggle_look_ahead(false)
 					return false	# Object on other side of Block
+			target_obj.update_prev_pos()
 			target_obj.position += dir * size
 			toggle_look_ahead(false)
 		elif target_obj is ToggleWall and target_obj.toggle:
@@ -139,6 +143,7 @@ func raycast_check(dir: Vector2) -> bool:
 			return false
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
+			if not target_tile_data: return false
 			if target_tile_data.get_custom_data("hint"):
 				hint.emit(true)
 # ICE

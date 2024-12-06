@@ -78,6 +78,20 @@ position = Vector2(496, 624)
 scale = Vector2(1, 1)
 item_type = "RED"
 
+[node name="Trap" type="Node2D" parent="."]
+
+[node name="Teleport" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
+position = Vector2(176, 304)
+Target = NodePath("../Teleport2")
+
+[node name="Teleport2" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
+position = Vector2(208, 688)
+Target = NodePath("../Teleport3")
+
+[node name="Teleport3" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
+position = Vector2(656, 464)
+Target = NodePath("../Teleport")
+
 [node name="Blocks" type="Node2D" parent="."]
 
 [node name="Block" parent="Blocks" node_paths=PackedStringArray("walls") instance=ExtResource("7_r7iso")]
@@ -111,20 +125,6 @@ walls = NodePath("../../Walls")
 [node name="Block8" parent="Blocks" node_paths=PackedStringArray("walls") instance=ExtResource("7_r7iso")]
 position = Vector2(656, 592)
 walls = NodePath("../../Walls")
-
-[node name="Trap" type="Node2D" parent="."]
-
-[node name="Teleport" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
-position = Vector2(176, 304)
-Target = NodePath("../Teleport2")
-
-[node name="Teleport2" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
-position = Vector2(208, 688)
-Target = NodePath("../Teleport3")
-
-[node name="Teleport3" parent="Trap" node_paths=PackedStringArray("Target") instance=ExtResource("9_agn6n")]
-position = Vector2(656, 464)
-Target = NodePath("../Teleport")
 
 [node name="Chips" type="Node2D" parent="."]
 
