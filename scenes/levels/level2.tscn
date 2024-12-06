@@ -65,15 +65,15 @@ position = Vector2(528, 464)
 walls = NodePath("../Walls")
 
 [node name="Ant" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(208, 400)
+position = Vector2(272, 400)
 walls = NodePath("../Walls")
 
 [node name="Ant2" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(208, 464)
+position = Vector2(304, 464)
 walls = NodePath("../Walls")
 
 [node name="Ant3" parent="." node_paths=PackedStringArray("walls") instance=ExtResource("9_roc7f")]
-position = Vector2(208, 528)
+position = Vector2(272, 528)
 walls = NodePath("../Walls")
 
 [connection signal="goal_complete" from="Walls/Goal" to="." method="_on_goal_complete"]

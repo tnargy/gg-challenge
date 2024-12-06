@@ -35,7 +35,7 @@ func _loadLevel():
 	get_tree().paused = false
 	
 func save_furthest_level():
-	var file = FileAccess.open("user://level_data.json", FileAccess.WRITE)
+	var file = FileAccess.open("user://level_data.json", FileAccess.READ_WRITE)
 	if level > int(file.get_as_text()):
 		file.store_string(str(level))
 	file.close()

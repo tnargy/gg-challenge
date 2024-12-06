@@ -249,21 +249,24 @@ walls = NodePath("../../Walls")
 start_vector = Vector2(0, 32)
 
 [node name="Ant8" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
-position = Vector2(304, 144)
+position = Vector2(272, 144)
 walls = NodePath("../../Walls")
 start_vector = Vector2(0, 32)
 
 [node name="Ant9" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(272, 208)
 walls = NodePath("../../Walls")
+start_vector = Vector2(0, -32)
 
 [node name="Ant10" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(176, 208)
 walls = NodePath("../../Walls")
+start_vector = Vector2(0, -32)
 
 [node name="Ant11" parent="Enemies" node_paths=PackedStringArray("walls") instance=ExtResource("8_ry2op")]
 position = Vector2(80, 208)
 walls = NodePath("../../Walls")
+start_vector = Vector2(0, -32)
 
 [node name="Blocks" type="Node2D" parent="."]
 

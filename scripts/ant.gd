@@ -26,7 +26,15 @@ func _physics_process(delta):
 			current_direction = Vector2(-1 * current_direction.y, current_direction.x)
 			move(delta)
 		else:
+			raycast.target_position = Vector2(-1 * raycast.target_position.y, raycast.target_position.x)
 			$Sprite2D.rotation += deg_to_rad(90)
+			if checkDirection():
+				raycast.target_position = Vector2(-1 * ray.y, ray.x)
+				current_direction *= -1
+				move(delta)
+			else:
+				$Sprite2D.rotation += deg_to_rad(90)
+				raycast.target_position = -1 * ray
 	else:
 		if move(delta):
 			raycast.target_position = -1 * Vector2(-1 * raycast.target_position.y, raycast.target_position.x)
