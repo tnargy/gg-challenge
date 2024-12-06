@@ -20,6 +20,7 @@ time_limit = 100
 chips_needed = 4
 
 [node name="HUD" parent="." node_paths=PackedStringArray("level") instance=ExtResource("2_ayuei")]
+visible = false
 level = NodePath("..")
 
 [node name="Walls" type="TileMapLayer" parent="."]
@@ -29,22 +30,22 @@ tile_set = ExtResource("3_f43do")
 [node name="Goal" parent="Walls" instance=ExtResource("5_v687u")]
 position = Vector2(112, 464)
 
-[node name="Chips" type="Node" parent="."]
+[node name="Chips" type="Node2D" parent="."]
 
 [node name="Chip" parent="Chips" instance=ExtResource("7_vihtw")]
-position = Vector2(480, 672)
+position = Vector2(240, 336)
 item_type = "CHIP"
 
 [node name="Chip2" parent="Chips" instance=ExtResource("7_vihtw")]
-position = Vector2(480, 1184)
+position = Vector2(240, 592)
 item_type = "CHIP"
 
 [node name="Chip3" parent="Chips" instance=ExtResource("7_vihtw")]
-position = Vector2(1184, 992)
+position = Vector2(592, 496)
 item_type = "CHIP"
 
 [node name="Chip4" parent="Chips" instance=ExtResource("7_vihtw")]
-position = Vector2(1184, 864)
+position = Vector2(592, 432)
 item_type = "CHIP"
 
 [node name="Gate" parent="." instance=ExtResource("4_sct32")]
