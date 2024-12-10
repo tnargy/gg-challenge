@@ -144,8 +144,11 @@ func raycast_check(dir: Vector2) -> bool:
 		# Walking into a TileMap (ie wall/water/mud )
 		elif target_obj is TileMapLayer:
 			if not target_tile_data: return false
+# HINT
 			if target_tile_data.get_custom_data("hint"):
 				hint.emit(true)
+				swimming = false
+				sliding = false
 # ICE
 			if target_tile_data.get_custom_data("ice"):
 				if inventory["SKATES"] < 1:
