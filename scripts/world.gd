@@ -19,7 +19,7 @@ func _on_timer_timeout():
 func _loadLevel():
 	if current_level != null:
 		current_level.queue_free()
-	if not FileAccess.file_exists("res://scenes/levels/level"+str(level)+".tscn"):
+	if not ResourceLoader.exists("res://scenes/levels/level"+str(level)+".tscn"):
 		print("Congrats you beat all the levels")
 		return
 	var nextLevel = load("res://scenes/levels/level"+str(level)+".tscn")
@@ -31,9 +31,11 @@ func _loadLevel():
 	get_tree().paused = false
 	
 func save_furthest_level():
-	if not FileAccess.file_exists("res://scenes/levels/level"+str(level)+".tscn"):
+	if not ResourceLoader.exists("res://scenes/levels/level"+str(level)+".tscn"):
 		return
 	var file = FileAccess.open("user://level_data.json", FileAccess.READ_WRITE)
+	if file == null:
+		file = FileAccess.open("user://level_data.json", FileAccess.WRITE)
 	if level > int(file.get_as_text()):
 		file.store_string(str(level))
 	file.close()
